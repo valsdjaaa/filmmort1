@@ -1,8 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { TAGS } from "../config/tags";
-
-const modules = import.meta.glob("../content/texts/*.md", { eager: true });
+import { getCollection } from "astro:content";
 
 const formatDate = (date) =>
   new Date(date).toLocaleDateString("sr-Latn-RS", {
@@ -11,27 +10,19 @@ const formatDate = (date) =>
     year: "numeric",
   });
 
-// Učitaj postove
-let posts = Object.values(modules).map((mod) => {
-  const slug = mod.file.split("/").pop().replace(".md", "");
+let posts = await getCollection("texts");
 
-  return {
-    ...mod.frontmatter,
-    slug,
-  };
-});
+posts = posts.sort((a, b) =>
+  new Date(b.data.date) - new Date(a.data.date)
+);
 
-// Sort po datumu
-posts = posts.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-// Uzmi aktivni tag iz URL-a
 const activeTag = Astro.url.searchParams.get("tag");
 
-// Ako postoji filter — filtriraj
 if (activeTag) {
-  posts = posts.filter((post) => post.tag === activeTag);
+  posts = posts.filter((post) => post.data.tag === activeTag);
 }
 ---
+
 
 <BaseLayout title="Arhiva" page="archive">
 

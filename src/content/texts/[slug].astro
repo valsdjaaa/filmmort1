@@ -1,18 +1,36 @@
 ---
-const modules = import.meta.glob("../../content/texts/*.md", { eager: true });
+import ArticleLayout from "../../layouts/ArticleLayout.astro";
+import { getCollection } from "astro:content";
 
-const { slug } = Astro.params;
+export async function getStaticPaths() {
+  const entries = await getCollection("texts");
 
-const post = Object.values(modules).find(
-  (m) => m.frontmatter.slug === slug
-);
-
-if (!post) {
-  throw new Error("Post not found");
+  return entries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
 }
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
 ---
 
-<article>
-  <h1>{post.frontmatter.title}</h1>
-  <post.default />
-</article>
+<ArticleLayout title={entry.data.title}>
+
+  <article class="article">
+
+    <header class="article-header">
+      <h1 class="article-title">{entry.data.title}</h1>
+
+      {entry.data.subtitle && (
+        <p class="article-subtitle">{entry.data.subtitle}</p>
+      )}
+    </header>
+
+    <div class="article-body">
+      <Content />
+    </div>
+
+  </article>
+
+</ArticleLayout>

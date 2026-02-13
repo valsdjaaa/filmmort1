@@ -4,7 +4,6 @@ subtitle: ili zasto je Claude Lelouch veći car od Truffauta
 kicker: 
 tag: esej
 date: 2026-02-08
-slug: un-homme
 ---
 
 ![lelus](/images/un-homme.jpg)
