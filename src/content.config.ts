@@ -1,5 +1,8 @@
-const entries = defineCollection({
-  loader: glob({ base: './src/content', pattern: '**/*.{md,mdx}' }),
+import { defineCollection, z } from 'astro:content';
+import { glob } from 'astro/loaders';
+
+const texts = defineCollection({
+  loader: glob({ base: './src/content/texts', pattern: '**/*.{md,mdx}' }),
   schema: ({ image }) =>
     z.object({
       title: z.string().optional(),
@@ -22,9 +25,9 @@ const entries = defineCollection({
       poster: image().optional(),
       camera: z.string().optional(),
       location: z.string().optional(),
-
-      // text
-      // (ništa dodatno, body je tekst)
-
     }).passthrough(),
 });
+
+export const collections = {
+  texts,
+};
