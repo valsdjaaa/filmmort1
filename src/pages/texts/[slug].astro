@@ -1,26 +1,35 @@
 ---
 import ArticleLayout from "../../layouts/ArticleLayout.astro";
 
+// GENERIŠI STATIC PATHS NA OSNOVU IMENA FAJLA
 export async function getStaticPaths() {
   const modules = import.meta.glob("../../content/texts/*.md", { eager: true });
 
-  return Object.values(modules).map((mod) => ({
-    params: { slug: mod.frontmatter.slug },
-  }));
+  return Object.keys(modules).map((path) => {
+    const slug = path.split("/").pop().replace(".md", "");
+
+    return {
+      params: { slug },
+    };
+  });
 }
 
-const modules = import.meta.glob("../../content/texts/*.md", { eager: true });
 const { slug } = Astro.params;
 
-const entry = Object.values(modules).find(
-  (mod) => mod.frontmatter.slug === slug
-);
+// Učitaj ponovo (da imamo pristup sadržaju)
+const modules = import.meta.glob("../../content/texts/*.md", { eager: true });
+
+const entry = Object.entries(modules).find(([path]) => {
+  const fileSlug = path.split("/").pop().replace(".md", "");
+  return fileSlug === slug;
+});
 
 if (!entry) {
   throw new Error("Post not found");
 }
 
-const { frontmatter, default: Content } = entry;
+const [, mod] = entry;
+const { frontmatter, default: Content } = mod;
 ---
 
 <ArticleLayout title={frontmatter.title}>
@@ -32,6 +41,10 @@ const { frontmatter, default: Content } = entry;
 
       {frontmatter.subtitle && (
         <p class="article-subtitle">{frontmatter.subtitle}</p>
+      )}
+
+      {frontmatter.kicker && (
+        <p class="article-kicker">{frontmatter.kicker}</p>
       )}
     </header>
 
