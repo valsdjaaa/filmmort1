@@ -23,34 +23,12 @@ if (activeTag) {
 }
 ---
 
-
 <BaseLayout title="Arhiva" page="archive">
 
-  {/* FILTERI */}
-  <nav class="archive-filters">
-    <a
-      href="/archive"
-      class={`filter-pill ${!activeTag ? "active" : ""}`}
-    >
-      SVE
-    </a>
-
-    {Object.entries(TAGS).map(([key, value]) => (
-      <a
-        href={`/archive?tag=${key}`}
-        class={`filter-pill ${activeTag === key ? "active" : ""}`}
-        style={`--tag-color: ${value.color}`}
-      >
-        {value.label}
-      </a>
-    ))}
-  </nav>
-
-  {/* GRID */}
   <section class="archive-grid">
     {posts.map((post) => {
-      const tagData = TAGS[post.tag] ?? {
-        label: post.tag?.toUpperCase(),
+      const tagData = TAGS[post.data.tag] ?? {
+        label: post.data.tag?.toUpperCase(),
         color: "#999",
       };
 
@@ -69,14 +47,16 @@ if (activeTag) {
             </span>
 
             <span class="archive-date">
-              {formatDate(post.date)}
+              {formatDate(post.data.date)}
             </span>
           </div>
 
-          <h3 class="archive-title">{post.title}</h3>
+          <h3 class="archive-title">{post.data.title}</h3>
 
-          {post.subtitle && (
-            <p class="archive-subtitle">{post.subtitle}</p>
+          {post.data.subtitle && (
+            <p class="archive-subtitle">
+              {post.data.subtitle}
+            </p>
           )}
         </a>
       );

@@ -74,6 +74,12 @@ body {
   will-change: transform;
 }
 
+/* TITLE + NAV */
+.site-title {
+  display: inline-flex;
+  align-items: baseline; /* ← PRAVI BASELINE */
+}
+
 /* CONTENT ABOVE FILM */
 .site-header-inner {
   position: relative;
@@ -82,12 +88,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-/* TITLE + NAV */
-.site-title {
-  display: inline-flex;
-  align-items: baseline; /* ← PRAVI BASELINE */
 }
 
 .site-title > a {
@@ -105,7 +105,7 @@ body {
   display: flex;
   gap: 1.4rem;
   margin-left: 3.5rem;
-  padding-bottom: 0.05em; /* optional fine-tuning */
+    transform: translateY(36px); /* Počni sa 15px pa povećavaj */
 }
 
 .site-nav a {
@@ -116,7 +116,6 @@ body {
   color: #aaa;
   text-decoration: none;
 }
-
 .site-nav a:hover {
   color: #fff;
 }
@@ -332,7 +331,7 @@ main {
   max-width: var(--max-width);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 0;
   border-top: 1px solid var(--line);
   border-left: 1px solid var(--line);
@@ -344,6 +343,7 @@ main {
   border-bottom: 1px solid var(--line);
   text-decoration: none;
   color: inherit;
+
   position: relative;
   overflow: hidden;
 
@@ -352,30 +352,31 @@ main {
   justify-content: space-between;
 }
 
-.archive-meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  font-size: 0.65rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--gray);
-}
-.archive-item.esej   .archive-tag { color: var(--accent-esej); }
-.archive-item.kritika .archive-tag { color: var(--accent-kritika); }
-.archive-item.beleska .archive-tag { color: var(--accent-beleska); }
-
+/* HOVER LAYER */
 .archive-item::before {
   content: "";
   position: absolute;
-  inset: 0;
+  inset: -40%;
   background-image: radial-gradient(var(--tag-color) 1px, transparent 2px);
   background-size: 8px 8px;
-  opacity: 0;
   transform: skewX(-18deg);
+  opacity: 0;
   transition: opacity 0.2s ease;
   pointer-events: none;
 }
+
+
+.archive-item:hover::before {
+  opacity: 0.18;
+}
+.archive-item {
+  position: relative;
+  /* overflow: hidden;  <-- OVO obriši */
+}
+
+
+
+/* TAG BOJE */
 .archive-item.esej {
   --tag-color: var(--accent-esej);
 }
@@ -388,11 +389,24 @@ main {
   --tag-color: var(--accent-beleska);
 }
 
+/* META */
+.archive-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gray);
+}
+
+/* HOVER */
 @media (hover: hover) {
   .archive-item:hover::before {
     opacity: 0.18;
   }
 }
+
 
 .about-grid {
   max-width: var(--max-width);
