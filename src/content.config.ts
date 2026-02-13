@@ -7,7 +7,8 @@ const texts = defineCollection({
     z.object({
       title: z.string(),
       subtitle: z.string().optional(),
-      kicker: z.string().optional(),
+      kicker: z.string().optional().nullable(),
+
 
       tag: z.string(),
       date: z.coerce.date(),
