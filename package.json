@@ -12,6 +12,7 @@
     "astro": "^5.16.9"
   },
   "devDependencies": {
-    "@astrojs/mdx": "^4.3.13"
+    "@astrojs/mdx": "^4.3.13",
+    "@astrojs/sitemap": "^3.7.0"
   }
 }
