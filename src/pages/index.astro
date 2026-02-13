@@ -1,0 +1,56 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const modules = import.meta.glob("../content/texts/*.md", { eager: true });
+
+const posts = Object.values(modules)
+  .map((mod) => ({
+    ...mod.frontmatter,
+  }))
+  .sort((a, b) => new Date(b.date) - new Date(a.date))
+  .slice(0, 7);
+---
+
+<BaseLayout title="Film Mort" page="home">
+  <section class="list">
+    {posts.map(post => (
+      <a
+        href={`/texts/${post.slug}`}
+        class={`row-link row ${post.tag || ""}`}
+      >
+        <div class="row-inner">
+
+          <!-- DATE -->
+			<div class="cell date">
+			  {new Date(post.date).toLocaleDateString("sr-Latn-RS", {
+				weekday: "long",
+				day: "numeric",
+				month: "long",
+				year: "numeric",
+			  })}
+			</div>
+
+
+          <!-- TAG -->
+          <div class={`cell tag ${post.tag || ""}`}>
+            {post.tag && post.tag.toUpperCase()}
+          </div>
+
+          <!-- CONTENT -->
+          <div class="cell content">
+            {post.kicker && (
+              <div class="kicker">{post.kicker}</div>
+            )}
+
+            <div class="title">{post.title}</div>
+
+            {post.subtitle && (
+              <div class="subtitle">{post.subtitle}</div>
+            )}
+          </div>
+
+        </div>
+      </a>
+    ))}
+  </section>
+</BaseLayout>

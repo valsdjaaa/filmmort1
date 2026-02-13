@@ -1,0 +1,56 @@
+---
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="sr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+
+    <!-- samo article css -->
+    <link rel="stylesheet" href="/styles/article.css" />
+  </head>
+
+  <body>
+
+    <!-- READER HEADER -->
+    <header class="reader-header">
+      <div class="reader-header-inner">
+
+        <!-- NAZAD -->
+        <button
+          class="nav-back"
+          onclick="history.length > 1 ? history.back() : location.href='/'"
+          aria-label="Nazad"
+        >
+          ←
+        </button>
+
+        <!-- GHOST NASLOV -->
+        <div class="reader-brand">FILM MORT</div>
+
+        <!-- DESNO -->
+        <div class="reader-actions">
+          <button class="theme-toggle" aria-label="Tema">◐</button>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- SADRŽAJ -->
+    <main class="article-main">
+      <slot />
+    </main>
+
+    <!-- DARK / LIGHT TOGGLE – SAMO ZA ARTICLE -->
+    <script>
+      const btn = document.querySelector('.theme-toggle');
+      btn?.addEventListener('click', () => {
+        document.documentElement.classList.toggle('dark');
+      });
+    </script>
+
+  </body>
+</html>

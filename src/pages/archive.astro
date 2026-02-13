@@ -1,0 +1,44 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const modules = import.meta.glob("../content/texts/*.md", { eager: true });
+
+const formatDate = (date) =>
+  new Date(date).toLocaleDateString("sr-Latn-RS", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+
+const posts = Object.values(modules)
+  .map((mod) => mod.frontmatter)
+  .sort((a, b) => new Date(b.date) - new Date(a.date));
+---
+
+<BaseLayout title="Arhiva" page="archive">
+
+
+  <section class="archive-grid">
+    {posts.map(post => (
+      <a
+        href={`/texts/${post.slug}`}
+        class={`archive-item ${post.tag}`}
+      >
+        <div class="archive-meta">
+          <span class="archive-tag">{post.tag}</span>
+          <span class="archive-date">
+            {formatDate(post.date)}
+          </span>
+        </div>
+
+        <h3 class="archive-title">{post.title}</h3>
+
+        {post.subtitle && (
+          <p class="archive-subtitle">{post.subtitle}</p>
+        )}
+      </a>
+    ))}
+  </section>
+
+</BaseLayout>
+

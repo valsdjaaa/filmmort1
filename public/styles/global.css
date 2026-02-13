@@ -1,0 +1,432 @@
+/* ===================== FONTS ===================== */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap");
+
+/* ===================== ROOT ===================== */
+:root {
+  --black: #0e0e0e;
+  --gray: #666;
+  --line: #111;
+
+  --accent-kritika: #c5161d;
+  --accent-esej: #0057ff;
+  --accent-beleska: #0a8f3c;
+
+  --max-width: 1200px;
+}
+
+/* ===================== RESET ===================== */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", system-ui, sans-serif;
+  color: var(--black);
+  background: #fff;
+}
+
+/* ================================================= */
+/* ===================== HEADER ==================== */
+/* ================================================= */
+
+.site-header {
+  position: relative;
+  height: 140px;
+  background: #000;
+  overflow: hidden;
+  margin-bottom: 0;
+}
+
+.film-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  background-repeat: no-repeat;
+  background-size: auto 140px; /* VISINA = HEADER */
+  background-position: center center;
+
+  mix-blend-mode: screen;
+  opacity: 1;
+}
+
+.dust {
+  position: absolute;
+  inset: 0;
+  background-repeat: repeat;
+  background-size: 700px 700px;
+  mix-blend-mode: screen;
+}
+
+.dust-a { opacity: 0.6; }
+.dust-b { opacity: 0.5; }
+.dust-c { opacity: 0.4; }
+
+#film-frame {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;        /* NE contain */
+  object-position: center;
+  opacity: 0.6;
+  mix-blend-mode: screen;
+  will-change: transform;
+}
+
+/* CONTENT ABOVE FILM */
+.site-header-inner {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* TITLE + NAV */
+.site-title {
+  display: inline-flex;
+  align-items: baseline; /* ← PRAVI BASELINE */
+}
+
+.site-title > a {
+  font-size: clamp(4.2rem, 9vw, 6.6rem);
+  font-weight: 300;
+  letter-spacing: 0.28em;
+  line-height: 1;
+  text-transform: uppercase;
+  color: #fff;
+  text-decoration: none;
+  display: block;
+}
+
+.site-nav {
+  display: flex;
+  gap: 1.4rem;
+  margin-left: 3.5rem;
+  padding-bottom: 0.05em; /* optional fine-tuning */
+}
+
+.site-nav a {
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #aaa;
+  text-decoration: none;
+}
+
+.site-nav a:hover {
+  color: #fff;
+}
+
+/* ================================================= */
+/* ===================== LIST ====================== */
+/* ================================================= */
+
+.list {
+  width: 100%;
+}
+
+.row {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  border-bottom: 1px solid var(--line);
+  position: relative;
+  overflow: hidden;
+}
+
+/* HOVER PATTERN */
+.row::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(var(--tag-color) 1px, transparent 2px);
+  background-size: 8px 8px;
+  opacity: 0;
+  transform: skewX(-18deg);
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+@media (hover: hover) {
+  .row:hover::before {
+    opacity: 0.18;
+  }
+}
+
+.row-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 260px 200px 1fr;
+}
+
+/* ===================== CELLS ===================== */
+
+.cell {
+  padding: 2rem 1.5rem;
+}
+
+.cell:not(:last-child) {
+  border-right: 1px solid var(--line);
+}
+
+/* DATE */
+.cell.date {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  text-align: right;
+  font-size: 0.85rem;
+  color: var(--gray);
+}
+
+/* TAG */
+.cell.tag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.row.kritika { --tag-color: var(--accent-kritika); }
+.row.esej    { --tag-color: var(--accent-esej); }
+.row.beleska{ --tag-color: var(--accent-beleska); }
+
+.cell.tag {
+  color: var(--tag-color);
+}
+
+/* CONTENT */
+.cell.content {
+  display: flex;
+  flex-direction: column;
+}
+
+/* KICKER */
+.kicker {
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #777;
+  margin-bottom: 0.4rem;
+}
+
+/* TITLE */
+.title {
+  font-size: clamp(2.1rem, 3vw, 2.9rem);
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.title a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* SUBTITLE */
+.subtitle {
+  margin-top: 0.5rem;
+  font-size: 1.05rem;
+  color: #444;
+}
+
+/* LINK RESET */
+.row-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+.title-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 2rem;
+}
+
+.list.archive .row-inner {
+  display: grid;
+  grid-template-columns: 140px auto auto 1fr;
+  align-items: baseline;
+  column-gap: 1.5rem;
+}
+.list.archive .date {
+  justify-self: end;
+  font-size: 0.85rem;
+  color: var(--gray);
+  white-space: nowrap;
+}
+.list.archive .content {
+  display: flex;
+  align-items: baseline;
+  gap: 1.2rem;
+}
+.list.archive .subtitle {
+  margin-top: 0;
+  font-size: 0.95rem;
+  color: var(--gray);
+}
+
+
+.list.archive .row-inner {
+  display: grid;
+  grid-template-columns: 140px auto auto 1fr;
+  align-items: baseline;
+  column-gap: 1.5rem;
+}
+.archive-filters {
+  display: flex;
+  justify-content: center;
+  gap: 1.6rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+
+
+.archive-filters button {
+  background: none;
+  border: none;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #777;
+  cursor: pointer;
+}
+
+.archive-filters button:hover {
+  color: #000;
+}
+.list.archive .cell.tag {
+  justify-self: start;
+  font-size: 0.65rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--tag-color);
+}
+.list.archive .title {
+  font-size: 2.4rem;
+  line-height: 1;
+}
+main {
+  padding-top: 0;
+}
+.list.archive .row-inner {
+  max-width: var(--max-width);
+  margin-left: auto;
+  margin-right: auto;
+
+  display: grid;
+  grid-template-columns: 140px auto auto 1fr;
+  align-items: baseline;
+  column-gap: 1.5rem;
+}
+.list.archive .cell {
+  padding-left: 0;
+  padding-right: 0;
+}
+.list.archive .cell.tag {
+  display: block;
+}
+.archive-grid {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+.archive-item {
+  aspect-ratio: 1 / 1;
+  padding: 1.2rem;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.archive-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gray);
+}
+.archive-item.esej   .archive-tag { color: var(--accent-esej); }
+.archive-item.kritika .archive-tag { color: var(--accent-kritika); }
+.archive-item.beleska .archive-tag { color: var(--accent-beleska); }
+
+.archive-item::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(var(--tag-color) 1px, transparent 2px);
+  background-size: 8px 8px;
+  opacity: 0;
+  transform: skewX(-18deg);
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+.archive-item.esej {
+  --tag-color: var(--accent-esej);
+}
+
+.archive-item.kritika {
+  --tag-color: var(--accent-kritika);
+}
+
+.archive-item.beleska {
+  --tag-color: var(--accent-beleska);
+}
+
+@media (hover: hover) {
+  .archive-item:hover::before {
+    opacity: 0.18;
+  }
+}
+
+.about-grid {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+
+.about-tile {
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 2rem;
+}
+
+
+
+.logo {
+  display: inline-block;
+}
+
+.logo .film,
+.logo .mort {
+  display: inline-block;
+}
+
+.site-header.archive .logo .mort {
+  transform: translateX(-5.3ch); /* šteluj */
+}

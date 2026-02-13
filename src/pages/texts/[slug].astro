@@ -1,0 +1,44 @@
+---
+import ArticleLayout from "../../layouts/ArticleLayout.astro";
+
+export async function getStaticPaths() {
+  const modules = import.meta.glob("../../content/texts/*.md", { eager: true });
+
+  return Object.values(modules).map((mod) => ({
+    params: { slug: mod.frontmatter.slug },
+  }));
+}
+
+const modules = import.meta.glob("../../content/texts/*.md", { eager: true });
+const { slug } = Astro.params;
+
+const entry = Object.values(modules).find(
+  (mod) => mod.frontmatter.slug === slug
+);
+
+if (!entry) {
+  throw new Error("Post not found");
+}
+
+const { frontmatter, default: Content } = entry;
+---
+
+<ArticleLayout title={frontmatter.title}>
+
+  <article class="article">
+
+    <header class="article-header">
+      <h1 class="article-title">{frontmatter.title}</h1>
+
+      {frontmatter.subtitle && (
+        <p class="article-subtitle">{frontmatter.subtitle}</p>
+      )}
+    </header>
+
+    <div class="article-body">
+      <Content />
+    </div>
+
+  </article>
+
+</ArticleLayout>
