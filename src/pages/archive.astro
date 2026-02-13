@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { TAGS } from "../config/tags";
 
 const modules = import.meta.glob("../content/texts/*.md", { eager: true });
 
@@ -10,35 +11,85 @@ const formatDate = (date) =>
     year: "numeric",
   });
 
-const posts = Object.values(modules)
-  .map((mod) => mod.frontmatter)
-  .sort((a, b) => new Date(b.date) - new Date(a.date));
+// Učitaj postove
+let posts = Object.values(modules).map((mod) => {
+  const slug = mod.file.split("/").pop().replace(".md", "");
+
+  return {
+    ...mod.frontmatter,
+    slug,
+  };
+});
+
+// Sort po datumu
+posts = posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+// Uzmi aktivni tag iz URL-a
+const activeTag = Astro.url.searchParams.get("tag");
+
+// Ako postoji filter — filtriraj
+if (activeTag) {
+  posts = posts.filter((post) => post.tag === activeTag);
+}
 ---
 
 <BaseLayout title="Arhiva" page="archive">
 
+  {/* FILTERI */}
+  <nav class="archive-filters">
+    <a
+      href="/archive"
+      class={`filter-pill ${!activeTag ? "active" : ""}`}
+    >
+      SVE
+    </a>
 
-  <section class="archive-grid">
-    {posts.map(post => (
+    {Object.entries(TAGS).map(([key, value]) => (
       <a
-        href={`/texts/${post.slug}`}
-        class={`archive-item ${post.tag}`}
+        href={`/archive?tag=${key}`}
+        class={`filter-pill ${activeTag === key ? "active" : ""}`}
+        style={`--tag-color: ${value.color}`}
       >
-        <div class="archive-meta">
-          <span class="archive-tag">{post.tag}</span>
-          <span class="archive-date">
-            {formatDate(post.date)}
-          </span>
-        </div>
-
-        <h3 class="archive-title">{post.title}</h3>
-
-        {post.subtitle && (
-          <p class="archive-subtitle">{post.subtitle}</p>
-        )}
+        {value.label}
       </a>
     ))}
+  </nav>
+
+  {/* GRID */}
+  <section class="archive-grid">
+    {posts.map((post) => {
+      const tagData = TAGS[post.tag] ?? {
+        label: post.tag?.toUpperCase(),
+        color: "#999",
+      };
+
+      return (
+        <a
+          href={`/texts/${post.slug}`}
+          class="archive-item"
+          style={`--tag-color: ${tagData.color}`}
+        >
+          <div class="archive-meta">
+            <span
+              class="archive-tag"
+              style={`color: ${tagData.color}`}
+            >
+              {tagData.label}
+            </span>
+
+            <span class="archive-date">
+              {formatDate(post.date)}
+            </span>
+          </div>
+
+          <h3 class="archive-title">{post.title}</h3>
+
+          {post.subtitle && (
+            <p class="archive-subtitle">{post.subtitle}</p>
+          )}
+        </a>
+      );
+    })}
   </section>
 
 </BaseLayout>
-
