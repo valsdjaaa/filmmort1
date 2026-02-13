@@ -1,14 +1,14 @@
 export const TAGS = {
-  esej: {
-    label: "ESEJ",
-    color: "#0057ff",
-  },
-  kritika: {
-    label: "KRITIKA",
-    color: "#c5161d",
-  },
   film: {
-    label: "FILM",
-    color: "#0a8f3c",
+    label: "Film",
+    color: "#ff4d4d",
+  },
+  politika: {
+    label: "Politika",
+    color: "#4d79ff",
+  },
+  esej: {
+    label: "Esej",
+    color: "#7a5cff",
   },
 };

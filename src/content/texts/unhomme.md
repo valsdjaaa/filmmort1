@@ -2,7 +2,7 @@
 title: Un homme et une femme
 subtitle: ili zasto je Claude Lelouch veći car od Truffauta
 kicker: 
-tag: esej
+tags: [esej]
 date: 2026-02-08
 ---
 

@@ -437,3 +437,8 @@ main {
 .site-header.archive .logo .mort {
   transform: translateX(-5.3ch); /* šteluj */
 }
+.archive-tags {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}

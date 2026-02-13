@@ -10,54 +10,107 @@ const formatDate = (date) =>
     year: "numeric",
   });
 
+// Učitaj kolekciju
 let posts = await getCollection("texts");
 
-posts = posts.sort((a, b) =>
-  new Date(b.data.date) - new Date(a.data.date)
+// Sort po datumu
+posts = posts.sort(
+  (a, b) => new Date(b.data.date) - new Date(a.data.date)
 );
 
-const activeTag = Astro.url.searchParams.get("tag");
+// Aktivni tagovi iz URL-a
+const activeTags = Astro.url.searchParams.getAll("tag");
 
-if (activeTag) {
-  posts = posts.filter((post) => post.data.tag === activeTag);
+// Filtriranje
+if (activeTags.length > 0) {
+  posts = posts.filter((post) =>
+    post.data.tags?.some((tag) =>
+      activeTags.includes(tag)
+    )
+  );
 }
 ---
 
 <BaseLayout title="Arhiva" page="archive">
 
+  <nav class="archive-filters">
+
+    <a
+      href="/archive"
+      class={`filter-pill ${activeTags.length === 0 ? "active" : ""}`}
+    >
+      SVE
+    </a>
+
+    {Object.entries(TAGS).map(([key, value]) => {
+
+      const isActive = activeTags.includes(key);
+
+      const newTags = isActive
+        ? activeTags.filter(t => t !== key)
+        : [...activeTags, key];
+
+      const query = newTags.length
+        ? "?" + newTags.map(t => `tag=${t}`).join("&")
+        : "";
+
+      return (
+        <a
+          href={`/archive${query}`}
+          class={`filter-pill ${isActive ? "active" : ""}`}
+          style={`--tag-color: ${value.color}`}
+        >
+          {value.label}
+        </a>
+      );
+    })}
+
+  </nav>
+
   <section class="archive-grid">
     {posts.map((post) => {
-      const tagData = TAGS[post.data.tag] ?? {
-        label: post.data.tag?.toUpperCase(),
-        color: "#999",
-      };
+
+      const postTags = post.data.tags ?? [];
 
       return (
         <a
           href={`/texts/${post.slug}`}
           class="archive-item"
-          style={`--tag-color: ${tagData.color}`}
         >
+
           <div class="archive-meta">
-            <span
-              class="archive-tag"
-              style={`color: ${tagData.color}`}
-            >
-              {tagData.label}
-            </span>
+
+            <div class="archive-tags">
+              {postTags.map(tag => {
+
+                const tagData = TAGS[tag] ?? {
+                  label: tag.toUpperCase(),
+                  color: "#999"
+                };
+
+                return (
+                  <span
+                    class="archive-tag"
+                    style={`color: ${tagData.color}`}
+                  >
+                    {tagData.label}
+                  </span>
+                );
+              })}
+            </div>
 
             <span class="archive-date">
               {formatDate(post.data.date)}
             </span>
+
           </div>
 
           <h3 class="archive-title">{post.data.title}</h3>
 
           {post.data.subtitle && (
-            <p class="archive-subtitle">
-              {post.data.subtitle}
-            </p>
+            <p class="archive-subtitle">{post.data.subtitle}</p>
           )}
+
         </a>
       );
     })}

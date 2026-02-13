@@ -10,7 +10,7 @@ const texts = defineCollection({
       kicker: z.string().optional().nullable(),
 
 
-      tag: z.string(),
+      tags: z.array(z.string()).default([]),
       date: z.coerce.date(),
 
       slug: z.string().optional(),
