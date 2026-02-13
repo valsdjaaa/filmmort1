@@ -1,0 +1,21 @@
+backend:
+  name: github
+  repo: valsdjaaa/filmmort1
+  branch: main
+
+media_folder: "public/images"
+public_folder: "/images"
+
+collections:
+  - name: "texts"
+    label: "Tekstovi"
+    folder: "src/content/texts"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Subtitle", name: "subtitle", widget: "string", required: false }
+      - { label: "Kicker", name: "kicker", widget: "string", required: false }
+      - { label: "Tag", name: "tag", widget: "select", options: ["esej", "kritika", "film"] }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Body", name: "body", widget: "markdown" }
