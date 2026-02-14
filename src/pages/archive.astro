@@ -124,13 +124,11 @@ if (activeTags.length > 0) {
 
   <script>
     window.TAGS = ${JSON.stringify(TAGS)};
-  </script>
-  <script>
+
     (function() {
       const params = new URLSearchParams(window.location.search);
       const activeTags = params.getAll('tag');
       
-      // Dodaj klasu active filterima
       document.querySelectorAll('.filter-pill').forEach(pill => {
         const href = pill.getAttribute('href');
         if (href === '/archive' && activeTags.length === 0) {
@@ -143,7 +141,6 @@ if (activeTags.length > 0) {
         }
       });
 
-      // Osvežavanje nakon klika
       document.querySelectorAll('.filter-pill').forEach(pill => {
         pill.addEventListener('click', function(e) {
           setTimeout(() => {
