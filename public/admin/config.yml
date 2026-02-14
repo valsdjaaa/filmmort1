@@ -1,7 +1,7 @@
 backend:
   name: git-gateway
+  repo: valsdjaaa/filmmort1
   branch: main
-  identity: true
 
 media_folder: "public/images"
 public_folder: "/images"
@@ -22,12 +22,10 @@ collections:
 
   - name: "tags"
     label: "Tagovi"
-    file: "src/config/tags.json"  # ← PROMENJENO
+    folder: "src/config/tags"
+    create: true
+    slug: "{{key}}"
     fields:
-      - label: "Tagovi"
-        name: "tags"
-        widget: "list"
-        fields:
-          - { label: "Ključ", name: "key", widget: "string" }
-          - { label: "Naziv", name: "label", widget: "string" }
-          - { label: "Boja", name: "color", widget: "color" }
+      - { label: "Ključ (npr. film)", name: "key", widget: "string" }
+      - { label: "Naziv za prikaz", name: "label", widget: "string" }
+      - { label: "Boja", name: "color", widget: "color" }
