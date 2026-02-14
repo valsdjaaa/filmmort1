@@ -562,7 +562,8 @@ main {
     overflow-x: auto;
     white-space: nowrap;
     -webkit-overflow-scrolling: touch;
-    padding: 0.1rem 0.2rem;  /* Smanjen padding da bude uz ivice */
+      padding: 0 !important;  /* Skroz ukloni padding */
+  margin: 0 !important;
     position: sticky;
     top: 0;
     background: #000;
@@ -571,20 +572,20 @@ main {
     margin-top: -1px;
   }
   
-  .mobile-filters .archive-filters {
-    display: flex !important;
-    flex-wrap: nowrap;
-    gap: 0.2rem;
-    margin: 0;
-    align-items: center;
-    min-height: 32px;
-  }
+.mobile-filters .archive-filters {
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
   
   .mobile-filters .filter-pill {
     display: inline-block;
     white-space: nowrap;
     margin-right: 0.2rem;
-    padding: 0.1rem 0.3rem;  /* Još manji padding */
+     padding: 0.15rem 0.4rem !important;  /* Minimalan padding */
+  margin: 0 !important;
     font-size: 0.55rem !important;  /* Smanjen font */
     letter-spacing: 0.18em;
     line-height: 1.2;
