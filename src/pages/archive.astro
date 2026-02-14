@@ -123,11 +123,11 @@ if (activeTags.length > 0) {
   </section>
 
   <script>
-    // Jednostavan skript koji dodaje klasu "active" filterima na osnovu URL-a
     (function() {
       const params = new URLSearchParams(window.location.search);
       const activeTags = params.getAll('tag');
       
+      // Dodaj klasu active filterima
       document.querySelectorAll('.filter-pill').forEach(pill => {
         const href = pill.getAttribute('href');
         if (href === '/archive' && activeTags.length === 0) {
@@ -138,6 +138,16 @@ if (activeTags.length > 0) {
             pill.classList.add('active');
           }
         }
+      });
+
+      // 🔥 FORSIRANO OSVEŽAVANJE NAKON KLIKA
+      document.querySelectorAll('.filter-pill').forEach(pill => {
+        pill.addEventListener('click', function(e) {
+          // Sačekaj malo da se URL promeni, pa osveži
+          setTimeout(() => {
+            window.location.reload();
+          }, 100);
+        });
       });
     })();
   </script>
