@@ -1,7 +1,18 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { TAGS } from "../config/tags";
+import tagsArray from '../config/tags.json';
 import { getCollection } from "astro:content";
+
+export const prerender = false;
+
+// Konvertuj niz u objekat za lakše korišćenje
+const TAGS = {};
+tagsArray.forEach(tag => {
+  TAGS[tag.key] = {
+    label: tag.label,
+    color: tag.color
+  };
+});
 
 const formatDate = (date) =>
   new Date(date).toLocaleDateString("sr-Latn-RS", {
@@ -10,82 +21,126 @@ const formatDate = (date) =>
     year: "numeric",
   });
 
-// Učitaj kolekciju
 let posts = await getCollection("texts");
 
-// Sort po datumu
 posts = posts.sort(
   (a, b) => new Date(b.data.date) - new Date(a.data.date)
 );
 
-// Aktivni tagovi iz URL-a
-const activeTags = Astro.url.searchParams.getAll("tag");
+const url = new URL(Astro.request.url);
+const activeTags = url.searchParams.getAll("tag");
 
-// Filtriranje
+// Filtriranje - post mora imati SVE active tagove? ili BILO KOJI?
+// Trenutno radi "BILO KOJI" (some)
 if (activeTags.length > 0) {
-  posts = posts.filter((post) =>
-    post.data.tags?.some((tag) =>
-      activeTags.includes(tag)
-    )
-  );
+  posts = posts.filter((post) => {
+    const postTags = post.data.tags ?? [];
+    // Proveri da li post ima BILO KOJI od aktivnih tagova
+    return activeTags.some(tag => postTags.includes(tag));
+  });
 }
 ---
 
 <BaseLayout title="Arhiva" page="archive">
 
-  <nav class="archive-filters">
+  <!-- HEADER FILTERS -->
+  <Fragment slot="header-filters">
+    <nav class="archive-filters">
 
-    <a
-      href="/archive"
-      class={`filter-pill ${activeTags.length === 0 ? "active" : ""}`}
-    >
-      SVE
-    </a>
+      <!-- SVE -->
+      <a
+        href="/archive"
+        class={`filter-pill ${activeTags.length === 0 ? "active" : ""}`}
+      >
+        SVE
+      </a>
 
-    {Object.entries(TAGS).map(([key, value]) => {
+      {Object.entries(TAGS).map(([key, value]) => {
 
-      const isActive = activeTags.includes(key);
+        const isActive = activeTags.includes(key);
 
-      const newTags = isActive
-        ? activeTags.filter(t => t !== key)
-        : [...activeTags, key];
+        const newTags = isActive
+          ? activeTags.filter(t => t !== key)
+          : [...activeTags, key];
 
-      const query = newTags.length
-        ? "?" + newTags.map(t => `tag=${t}`).join("&")
-        : "";
+        const query = newTags.length
+          ? "?" + newTags.map(t => `tag=${t}`).join("&")
+          : "";
 
-      return (
-        <a
-          href={`/archive${query}`}
-          class={`filter-pill ${isActive ? "active" : ""}`}
-          style={`--tag-color: ${value.color}`}
-        >
-          {value.label}
-        </a>
-      );
-    })}
+        return (
+          <a
+            href={`/archive${query}`}
+            class={`filter-pill ${isActive ? "active" : ""}`}
+            style={`--tag-color: ${value.color}`}
+          >
+            {value.label.toUpperCase()}
+          </a>
+        );
+      })}
 
-  </nav>
+    </nav>
+  </Fragment>
 
+
+  <!-- GRID -->
   <section class="archive-grid">
+
+    <!-- FILTER TILE (ako želiš filtere i u gridu) -->
+    <div class="archive-item archive-item--filters">
+      <div class="archive-filters-grid">
+        <a
+          href="/archive"
+          class={`filter-pill ${activeTags.length === 0 ? "active" : ""}`}
+        >
+          SVE
+        </a>
+
+        {Object.entries(TAGS).map(([key, value]) => {
+
+          const isActive = activeTags.includes(key);
+          const newTags = isActive
+            ? activeTags.filter(t => t !== key)
+            : [...activeTags, key];
+          const query = newTags.length
+            ? "?" + newTags.map(t => `tag=${t}`).join("&")
+            : "";
+
+          return (
+            <a
+              href={`/archive${query}`}
+              class={`filter-pill ${isActive ? "active" : ""}`}
+              style={`--tag-color: ${value.color}`}
+            >
+              {value.label}
+            </a>
+          );
+        })}
+      </div>
+    </div>
+
+
+    <!-- POSTOVI -->
     {posts.map((post) => {
 
       const postTags = post.data.tags ?? [];
 
       return (
         <a
-          href={`/texts/${post.slug}`}
+          href={`/texts/${post.id}`}
           class="archive-item"
+          style={`--tag-color: ${
+            TAGS[postTags[0]]?.color ?? "#999"
+          }`}
         >
 
           <div class="archive-meta">
 
             <div class="archive-tags">
-              {postTags.map(tag => {
+              {postTags.map((tag) => {
 
                 const tagData = TAGS[tag] ?? {
                   label: tag.toUpperCase(),
-                  color: "#999"
+                  color: "#999",
                 };
 
                 return (
@@ -105,15 +160,20 @@ if (activeTags.length > 0) {
 
           </div>
 
-          <h3 class="archive-title">{post.data.title}</h3>
+          <h3 class="archive-title">
+            {post.data.title}
+          </h3>
 
           {post.data.subtitle && (
-            <p class="archive-subtitle">{post.data.subtitle}</p>
+            <p class="archive-subtitle">
+              {post.data.subtitle}
+            </p>
           )}
 
         </a>
       );
     })}
+
   </section>
 
 </BaseLayout>

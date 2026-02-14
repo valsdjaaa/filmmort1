@@ -1,57 +1,40 @@
 ---
 import ArticleLayout from "../../layouts/ArticleLayout.astro";
+import { getCollection } from "astro:content";
 
-// GENERIŠI STATIC PATHS NA OSNOVU IMENA FAJLA
 export async function getStaticPaths() {
-  const modules = import.meta.glob("../../content/texts/*.md", { eager: true });
-
-  return Object.keys(modules).map((path) => {
-    const slug = path.split("/").pop().replace(".md", "");
-
-    return {
-      params: { slug },
-    };
-  });
+  const posts = await getCollection("texts");
+  
+  return posts.map((post) => ({
+    params: {
+      slug: post.id
+    }
+  }));
 }
 
 const { slug } = Astro.params;
 
-// Učitaj ponovo (da imamo pristup sadržaju)
-const modules = import.meta.glob("../../content/texts/*.md", { eager: true });
+const posts = await getCollection("texts");
+const post = posts.find(p => p.id === slug);
 
-const entry = Object.entries(modules).find(([path]) => {
-  const fileSlug = path.split("/").pop().replace(".md", "");
-  return fileSlug === slug;
-});
-
-if (!entry) {
-  throw new Error("Post not found");
+if (!post) {
+  throw new Error(`Post not found: ${slug}`);
 }
 
-const [, mod] = entry;
-const { frontmatter, default: Content } = mod;
+// Uzmi renderovani HTML iz post.rendered.html
+const contentHtml = post.rendered?.html || post.body;
 ---
 
-<ArticleLayout title={frontmatter.title}>
-
+<ArticleLayout title={post.data.title}>
   <article class="article">
-
     <header class="article-header">
-      <h1 class="article-title">{frontmatter.title}</h1>
-
-      {frontmatter.subtitle && (
-        <p class="article-subtitle">{frontmatter.subtitle}</p>
-      )}
-
-      {frontmatter.kicker && (
-        <p class="article-kicker">{frontmatter.kicker}</p>
+      <h1 class="article-title">{post.data.title}</h1>
+      {post.data.subtitle && (
+        <p class="article-subtitle">{post.data.subtitle}</p>
       )}
     </header>
-
     <div class="article-body">
-      <Content />
+      <div set:html={contentHtml} />
     </div>
-
   </article>
-
 </ArticleLayout>

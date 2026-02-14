@@ -279,23 +279,15 @@ body {
   column-gap: 1.5rem;
 }
 
-
-
-
-.archive-filters button {
-  background: none;
-  border: none;
-  font-family: "IBM Plex Sans", sans-serif;
-  font-size: 0.7rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: #777;
-  cursor: pointer;
+.archive-filters {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: flex;
+  gap: 1rem;
 }
 
-.archive-filters button:hover {
-  color: #000;
-}
+
+
 .list.archive .cell.tag {
   justify-self: start;
   font-size: 0.65rem;
@@ -434,11 +426,95 @@ main {
   display: inline-block;
 }
 
+/* 
 .site-header.archive .logo .mort {
-  transform: translateX(-5.3ch); /* šteluj */
+  transform: translateX(-5.3ch);
 }
+*/
 .archive-tags {
   display: flex;
   gap: 0.6rem;
   flex-wrap: wrap;
+}
+
+.archive-filters {
+  max-width: var(--max-width);
+  margin: 2rem auto;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+
+
+.site-header-inner {
+  position: relative;
+}
+
+.archive-filters-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.filters-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+
+.archive-item--filters {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.archive-filters-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.site-header .logo .mort {
+  transform: none;
+}
+
+
+.filter-pill {
+  position: relative;
+  display: inline-block;
+  padding: 0.35rem 0.7rem;
+  border-radius: 0;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  
+  /* Neaktivan: slova u boji, providna pozadina */
+  color: var(--tag-color, #aaa);
+  background: transparent;
+  
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.filter-pill:hover {
+  background: rgba(255,255,255,0.08);
+  /* Na hoveru zadrži boju slova */
+  color: var(--tag-color, #fff);
+}
+
+/* Aktivan filter - kliknut */
+.filter-pill.active {
+  background: var(--tag-color) !important;
+  color: #000 !important;
+}
+
+.filter-pill.active:hover {
+  background: var(--tag-color, #aaa);
+  opacity: 0.9;
+  color: #000;
 }

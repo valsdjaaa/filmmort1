@@ -1,0 +1,95 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { TAGS } from "../../config/tags";
+import { getCollection } from "astro:content";
+
+const formatDate = (date) =>
+  new Date(date).toLocaleDateString("sr-Latn-RS", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+
+export async function getStaticPaths() {
+  const tags = Object.keys(TAGS);
+
+  return tags.map((tag) => ({
+    params: { tag },
+  }));
+}
+
+const { tag } = Astro.params;
+
+let posts = await getCollection("texts");
+
+posts = posts
+  .filter((post) =>
+    (post.data.tags ?? []).includes(tag)
+  )
+  .sort((a, b) =>
+    new Date(b.data.date) - new Date(a.data.date)
+  );
+---
+
+<BaseLayout title="Arhiva" page="archive">
+
+<section class="archive-grid">
+
+  <!-- FILTER TILE -->
+  <div class="archive-item archive-item--filters">
+    <div class="archive-filters-grid">
+
+      <a href="/archive" class="filter-pill">
+        SVE
+      </a>
+
+      {Object.entries(TAGS).map(([key, value]) => (
+        <a
+          href={`/archive/${key}`}
+          class={`filter-pill ${key === tag ? "active" : ""}`}
+          style={`color: ${value.color}`}
+        >
+          {value.label.toUpperCase()}
+        </a>
+      ))}
+
+    </div>
+  </div>
+
+  {posts.map((post) => (
+    <a
+      href={`/texts/${post.id}`}
+      class="archive-item"
+    >
+      <div class="archive-meta">
+        <div class="archive-tags">
+          {(post.data.tags ?? []).map((t) => (
+            <span
+              class="archive-tag"
+              style={`color: ${TAGS[t]?.color ?? "#999"}`}
+            >
+              {TAGS[t]?.label ?? t}
+            </span>
+          ))}
+        </div>
+
+        <span class="archive-date">
+          {formatDate(post.data.date)}
+        </span>
+      </div>
+
+      <h3 class="archive-title">
+        {post.data.title}
+      </h3>
+
+      {post.data.subtitle && (
+        <p class="archive-subtitle">
+          {post.data.subtitle}
+        </p>
+      )}
+    </a>
+  ))}
+
+</section>
+
+</BaseLayout>

@@ -21,11 +21,13 @@ const { title = "", page = "" } = Astro.props;
   </head>
 
   <body>
-    <Header page={page} />
+<Header page={page}>
+  <slot name="header-filters" slot="header-filters" />
+</Header>
 
     <main>
       <slot />
     </main>
-
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   </body>
 </html>

@@ -10,8 +10,7 @@ const { page = "" } = Astro.props;
     <div class="dust dust-c"></div>
   </div>
 
-  <div class="site-header-inner">
-
+ <div class="site-header-inner">
     <div class="site-title">
       <a href="/" class="logo">
         <span class="film">FILM</span>
@@ -23,10 +22,16 @@ const { page = "" } = Astro.props;
       <a href="/archive">Arhiva</a>
       <a href="/about">About</a>
     </nav>
-
   </div>
 
+  {page === "archive" && (
+    <div class="header-filters">
+      <slot name="header-filters" />
+    </div>
+  )}
+
 </header>
+
 
 <script>
 const layers = [

@@ -19,3 +19,16 @@ collections:
       - { label: "Tag", name: "tag", widget: "select", options: ["esej", "kritika", "film"] }
       - { label: "Date", name: "date", widget: "datetime" }
       - { label: "Body", name: "body", widget: "markdown" }
+
+  # NOVA KOLEKCIJA ZA TAGOVE
+  - name: "tags"
+    label: "Tagovi"
+    folder: "src/config"
+    create: true
+    slug: "tags"
+    extension: json
+    format: json
+    fields:
+      - { label: "Ključ (npr. film)", name: "key", widget: "string" }
+      - { label: "Naziv za prikaz", name: "label", widget: "string" }
+      - { label: "Boja", name: "color", widget: "color" }

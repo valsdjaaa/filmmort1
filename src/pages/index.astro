@@ -1,41 +1,26 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { TAGS } from "../config/tags";
+import { getCollection } from "astro:content";
 
-const modules = import.meta.glob("../content/texts/*.md", { eager: true });
-
-const posts = Object.values(modules)
-  .map((mod) => {
-    const filePath = mod.file;
-    const slug = filePath.split("/").pop().replace(".md", "");
-
-    return {
-      ...mod.frontmatter,
-      slug,
-    };
-  })
-  .sort((a, b) => new Date(b.date) - new Date(a.date))
+const posts = (await getCollection("texts"))
+  .sort((a, b) => new Date(b.data.date) - new Date(a.data.date))
   .slice(0, 7);
 ---
 
 <BaseLayout title="Film Mort" page="home">
   <section class="list">
     {posts.map(post => {
-      const tagData = TAGS[post.tag] ?? {
-        label: post.tag?.toUpperCase(),
-        color: "#999"
-      };
-
+      // Samo post.id, bez replace (jer ID nema .md ekstenziju)
+      const slug = post.id;
       return (
         <a
-          href={`/texts/${post.slug}`}
-          class="row-link row"
-          style={`--tag-color: ${tagData.color}`}
+          href={`/texts/${slug}`}
+          class={`row-link row ${post.data.tags?.[0] || ""}`}
         >
           <div class="row-inner">
 
             <div class="cell date">
-              {new Date(post.date).toLocaleDateString("sr-Latn-RS", {
+              {new Date(post.data.date).toLocaleDateString("sr-Latn-RS", {
                 weekday: "long",
                 day: "numeric",
                 month: "long",
@@ -43,22 +28,19 @@ const posts = Object.values(modules)
               })}
             </div>
 
-            <div
-              class="cell tag"
-              style={`color: ${tagData.color}`}
-            >
-              {tagData.label}
+            <div class="cell tag">
+              {post.data.tags?.[0]?.toUpperCase()}
             </div>
 
             <div class="cell content">
-              {post.kicker && (
-                <div class="kicker">{post.kicker}</div>
+              {post.data.kicker && (
+                <div class="kicker">{post.data.kicker}</div>
               )}
 
-              <div class="title">{post.title}</div>
+              <div class="title">{post.data.title}</div>
 
-              {post.subtitle && (
-                <div class="subtitle">{post.subtitle}</div>
+              {post.data.subtitle && (
+                <div class="subtitle">{post.data.subtitle}</div>
               )}
             </div>
 

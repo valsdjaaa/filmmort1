@@ -1,0 +1,17 @@
+[
+  {
+    "key": "film",
+    "label": "Film",
+    "color": "#ff4d4d"
+  },
+  {
+    "key": "politika",
+    "label": "Politika",
+    "color": "#4d79ff"
+  },
+  {
+    "key": "esej",
+    "label": "Esej",
+    "color": "#7a5cff"
+  }
+]

@@ -10,7 +10,10 @@
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.15",
-    "astro": "^5.16.9"
+    "astro": "^5.16.9",
+    "decap-cms-app": "^3.10.0",
+    "decap-cms-core": "^3.10.0",
+    "slugify": "^1.6.6"
   },
   "devDependencies": {
     "@astrojs/mdx": "^4.3.13",
