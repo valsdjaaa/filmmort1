@@ -524,9 +524,13 @@ main {
 
 @media (max-width: 768px) {
   
-  /* Header - manji na mobilnom */
+  /* ===== HEADER ===== */
   .site-header {
     height: 80px;
+  }
+  
+  .site-title {
+    margin-left: 0.8rem;  /* Odlepi naslov od leve ivice */
   }
   
   .site-title > a {
@@ -535,7 +539,8 @@ main {
   
   .site-nav {
     transform: translateY(20px);
-    margin-left: 1rem;
+    margin-left: 0.5rem;
+    margin-right: 0.8rem;  /* Odlepi navigaciju od desne ivice */
     gap: 0.8rem;
   }
   
@@ -543,14 +548,24 @@ main {
     font-size: 0.6rem;
   }
   
-  /* Filteri - horizontalni scroll */
+  /* ===== FILTERI ===== */
+  /* Pokaži header filtere na mobilnom */
+  .header-filters {
+    display: flex !important;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    margin: 0 0.8rem;  /* Malo od ivice */
+  }
+  
+  /* Filteri u arhivi - horizontalni scroll */
   .archive-filters {
     overflow-x: auto;
     white-space: nowrap;
     -webkit-overflow-scrolling: touch;
     flex-wrap: nowrap;
     justify-content: flex-start;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 0.8rem;  /* Padding sa strane */
     position: sticky;
     top: 0;
     background: #fff;
@@ -565,17 +580,17 @@ main {
     font-size: 0.8rem;
   }
   
-  /* Sakrij filter tile na mobilnom */
+  /* Sakrij filter tile (prvu kocku) na mobilnom */
   .archive-item--filters {
     display: none;
   }
   
-  /* Grid sa 2 kolone */
+  /* ===== ARHIVA GRID ===== */
   .archive-grid {
     grid-template-columns: repeat(2, 1fr);
+    padding: 0 0.8rem;  /* Malo od ivice */
   }
   
-  /* Smanji padding na arhivi */
   .archive-item {
     padding: 0.8rem;
   }
@@ -584,10 +599,31 @@ main {
     font-size: 0.55rem;
   }
   
-  /* Početna strana - lista */
+  /* ===== ARTICLE STRANA ===== */
+  .article-title {
+    font-size: clamp(2rem, 8vw, 3rem);  /* Manji naslov */
+    word-break: break-word;
+    padding: 0 0.8rem;  /* Odvojen od ivice */
+    /* Polu providan efekat (ako hoćeš da se nazire) */
+    opacity: 0.9;
+    text-shadow: 0 0 5px rgba(255,255,255,0.5);
+  }
+  
+  /* ===== DARK MODE IKONICA ===== */
+  .dark-mode-toggle {
+    width: 44px;  /* Minimum za tap */
+    height: 44px;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* ===== POČETNA STRANA - LISTA ===== */
   .row-inner {
     grid-template-columns: 100px 80px 1fr;
     gap: 0.5rem;
+    padding: 0 0.8rem;  /* Odvojeno od ivice */
   }
   
   .cell {
