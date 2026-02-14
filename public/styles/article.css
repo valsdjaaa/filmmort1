@@ -180,17 +180,17 @@ html:not(.dark) body::before {
   }
   
   /* Veća strelica za nazad - centrirana vertikalno */
-  .nav-back {
-    font-size: 2.2rem !important;
-    width: 44px;
-    height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    margin: 0;
-    line-height: 1;
-  }
+.nav-back {
+  font-size: 2.2rem !important;
+  font-weight: 700 !important;  /* Podebljano */
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  transform: translateY(0);  /* Osiguraj centriranje */
+}
   
   /* Dark ikonica - veća i pomerena desno */
   .theme-toggle {
