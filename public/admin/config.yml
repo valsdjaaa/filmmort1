@@ -1,6 +1,5 @@
 backend:
   name: git-gateway
-
   branch: main
   identity: true
 
@@ -21,18 +20,14 @@ collections:
       - { label: "Date", name: "date", widget: "datetime" }
       - { label: "Body", name: "body", widget: "markdown" }
 
-  # IZMENJEN DEO ZA TAGOVE
   - name: "tags"
     label: "Tagovi"
-    files:
-      - name: "tags"
-        label: "Tagovi"
-        file: "src/config/tags.json"
+    file: "src/config/tags.json"  # ← PROMENJENO
+    fields:
+      - label: "Tagovi"
+        name: "tags"
+        widget: "list"
         fields:
-          - label: "Tagovi"
-            name: "tags"
-            widget: "list"
-            fields:
-              - { label: "Ključ (npr. film)", name: "key", widget: "string" }
-              - { label: "Naziv za prikaz", name: "label", widget: "string" }
-              - { label: "Boja", name: "color", widget: "color" }
+          - { label: "Ključ", name: "key", widget: "string" }
+          - { label: "Naziv", name: "label", widget: "string" }
+          - { label: "Boja", name: "color", widget: "color" }
