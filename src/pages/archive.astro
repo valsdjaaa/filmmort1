@@ -123,8 +123,10 @@ if (activeTags.length > 0) {
   </section>
 
   <script>
+    window.TAGS = ${JSON.stringify(TAGS)};
+  </script>
+  <script>
     (function() {
-      // Aktivni tagovi iz URL-a
       const params = new URLSearchParams(window.location.search);
       const activeTags = params.getAll('tag');
       
@@ -141,10 +143,9 @@ if (activeTags.length > 0) {
         }
       });
 
-      // OSVEŽAVANJE NAKON KLIKA
+      // Osvežavanje nakon klika
       document.querySelectorAll('.filter-pill').forEach(pill => {
         pill.addEventListener('click', function(e) {
-          // Pusti link da promeni URL, pa osveži
           setTimeout(() => {
             window.location.reload();
           }, 50);
