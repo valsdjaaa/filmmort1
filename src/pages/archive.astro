@@ -37,17 +37,6 @@ let posts = await getCollection("texts");
 posts = posts.sort(
   (a, b) => new Date(b.data.date) - new Date(a.data.date)
 );
-
-const url = new URL(Astro.request.url);
-const activeTags = url.searchParams.getAll("tag").map(t => t.toLowerCase());
-
-// Filtriranje postova prema aktivnim tagovima
-if (activeTags.length > 0) {
-  posts = posts.filter((post) => {
-    const postTags = (post.data.tags ?? []).map(t => t.toLowerCase());
-    return activeTags.some(tag => postTags.includes(tag));
-  });
-}
 ---
 
 <BaseLayout title="Arhiva" page="archive">
@@ -97,6 +86,7 @@ if (activeTags.length > 0) {
         <a
           href={`/texts/${post.id}`}
           class="archive-item"
+          data-tags={postTags.join(' ')}
           style={`--tag-color: ${TAGS[postTags[0]]?.color ?? "#999"}`}
         >
           <div class="archive-meta">
@@ -123,26 +113,92 @@ if (activeTags.length > 0) {
   </section>
 
   <script is:inline>
-    // 1. Uzmi aktivne tagove iz URL-a
-    const params = new URLSearchParams(window.location.search);
-    const activeTags = params.getAll('tag');
-    
-    // 2. Dodaj klasu active filterima
-    document.querySelectorAll('.filter-pill').forEach(pill => {
-      const href = pill.getAttribute('href');
-      if (href === '/archive' && activeTags.length === 0) {
-        pill.classList.add('active');
-      } else if (activeTags.some(tag => href.includes(`?tag=${tag}`) || href.includes(`&tag=${tag}`))) {
-        pill.classList.add('active');
-      }
-    });
-
-    // 3. Na klik filtera, osveži stranicu
-    document.querySelectorAll('.filter-pill').forEach(pill => {
-      pill.addEventListener('click', function(e) {
-        setTimeout(() => window.location.reload(), 10);
+    (function() {
+      // Sačekaj da se DOM učita
+      document.addEventListener('DOMContentLoaded', function() {
+        const filterPills = document.querySelectorAll('.filter-pill');
+        const archiveItems = document.querySelectorAll('.archive-item:not(.archive-item--filters)');
+        
+        // Aktivni filteri iz URL-a
+        const params = new URLSearchParams(window.location.search);
+        let activeFilters = params.getAll('tag');
+        
+        // Funkcija za filtriranje
+        function filterPosts() {
+          archiveItems.forEach(item => {
+            const itemTags = item.dataset.tags?.split(' ') || [];
+            
+            if (activeFilters.length === 0) {
+              item.style.display = 'flex';
+            } else {
+              const shouldShow = activeFilters.some(filter => 
+                itemTags.some(tag => tag === filter.toLowerCase())
+              );
+              item.style.display = shouldShow ? 'flex' : 'none';
+            }
+          });
+        }
+        
+        // Funkcija za ažuriranje aktivnih klasa na filterima
+        function updateActiveFilters() {
+          filterPills.forEach(pill => {
+            pill.classList.remove('active');
+            const href = pill.getAttribute('href');
+            
+            if (href === '/archive' && activeFilters.length === 0) {
+              pill.classList.add('active');
+            } else {
+              const match = href.match(/tag=([^&]+)/);
+              if (match && activeFilters.includes(match[1])) {
+                pill.classList.add('active');
+              }
+            }
+          });
+        }
+        
+        // Dodaj event listenere na filtere
+        filterPills.forEach(pill => {
+          pill.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const href = this.getAttribute('href');
+            let newFilters = [];
+            
+            if (href !== '/archive') {
+              const match = href.match(/tag=([^&]+)/);
+              if (match) {
+                const clickedTag = match[1];
+                if (activeFilters.includes(clickedTag)) {
+                  newFilters = activeFilters.filter(t => t !== clickedTag);
+                } else {
+                  newFilters = [...activeFilters, clickedTag];
+                }
+              }
+            } else {
+              newFilters = [];
+            }
+            
+            activeFilters = newFilters;
+            
+            // Ažuriraj URL bez osvežavanja
+            const url = new URL(window.location);
+            url.searchParams.delete('tag');
+            newFilters.forEach(tag => url.searchParams.append('tag', tag));
+            window.history.pushState({}, '', url);
+            
+            // Ažuriraj aktivne klase
+            updateActiveFilters();
+            
+            // Filtriraj postove
+            filterPosts();
+          });
+        });
+        
+        // Inicijalno postavi aktivne filtere
+        updateActiveFilters();
+        filterPosts();
       });
-    });
+    })();
   </script>
 
 </BaseLayout>
