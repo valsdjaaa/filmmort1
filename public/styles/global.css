@@ -529,20 +529,18 @@ main {
     height: 80px;
   }
   
-  /* Vrati FILM MORT malo levo */
   .site-title {
-    margin-left: 0.2rem;  /* Smanjeno sa 0.8rem na 0.2rem */
+    margin-left: 0.2rem;
   }
   
   .site-title > a {
     font-size: clamp(2.5rem, 7vw, 4rem);
   }
   
-  /* Pomeri Arhiva i About malo desno (samo oni, ne i kvadrati) */
   .site-nav {
     transform: translateY(20px);
     margin-left: 0.5rem;
-    margin-right: 1rem;  /* Povećano sa 0.8rem na 1rem */
+    margin-right: 1rem;
     gap: 0.8rem;
   }
   
@@ -558,28 +556,22 @@ main {
     white-space: nowrap;
     -webkit-overflow-scrolling: touch;
     margin: 0 0.5rem;
+    /* Dodato da se vidi gde su */
+    min-height: 44px;
+    background: rgba(255,0,0,0.1); /* Privremeno da vidiš gde su */
   }
   
-  /* Filteri u arhivi - horizontalni scroll */
-  .archive-filters {
-    overflow-x: auto;
-    white-space: nowrap;
-    -webkit-overflow-scrolling: touch;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    padding: 0.5rem 0.5rem;
-    position: sticky;
-    top: 0;
-    background: #fff;
-    z-index: 10;
-    border-bottom: 1px solid var(--line);
-  }
-  
-  .filter-pill {
+  .header-filters .filter-pill {
     display: inline-block;
     margin-right: 0.5rem;
     padding: 0.5rem 1rem;
     font-size: 0.8rem;
+    white-space: nowrap;
+  }
+  
+  /* Sakrij originalne filtere u arhivi */
+  .archive-filters {
+    display: none;
   }
   
   /* Sakrij filter tile (prvu kocku) na mobilnom */
@@ -588,7 +580,6 @@ main {
   }
   
   /* ===== ARHIVA GRID ===== */
-  /* Kvadrati idu od ivice do ivice */
   .archive-grid {
     grid-template-columns: repeat(2, 1fr);
     margin-left: 0;
@@ -604,18 +595,31 @@ main {
     font-size: 0.55rem;
   }
   
+  /* Manji podnaslovi u arhivi */
+  .archive-subtitle {
+    font-size: 0.8rem !important;
+    line-height: 1.2;
+    margin-top: 0.3rem;
+  }
+  
   /* ===== ARTICLE STRANA ===== */
   .article-title {
-    font-size: clamp(1.8rem, 6vw, 2.5rem) !important;  /* Prisilno manji */
+    font-size: clamp(1.8rem, 6vw, 2.5rem) !important;
     word-break: break-word;
     padding: 0 0.8rem;
     opacity: 0.9;
     text-shadow: 0 0 5px rgba(255,255,255,0.5);
   }
   
+  /* Manji podnaslov u article */
+  .article-subtitle {
+    font-size: 1rem !important;
+    padding: 0 0.8rem;
+  }
+  
   /* ===== DARK MODE IKONICA ===== */
   .dark-mode-toggle {
-    width: 44px !important;  /* Prisilno veća */
+    width: 44px !important;
     height: 44px !important;
     font-size: 1.4rem !important;
     display: flex;
@@ -636,5 +640,21 @@ main {
   
   .title {
     font-size: clamp(1.4rem, 4vw, 2rem);
+  }
+  
+  /* Manji podnaslov na mainu */
+  .subtitle {
+    font-size: 0.9rem !important;
+    margin-top: 0.2rem;
+  }
+  
+  /* ===== ABOUT STRANA ===== */
+  .about-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  
+  .about-tile {
+    padding: 1rem;
+    font-size: 0.9rem;
   }
 }
