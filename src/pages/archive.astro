@@ -19,7 +19,7 @@ const tagsArray = Object.entries(tagFiles).map(([path, file]) => {
 // Napravi TAGS objekat za filtere
 const TAGS = {};
 tagsArray.forEach(tag => {
-  TAGS[tag.key.toLowerCase()] = {  // Čuvaj sve ključeve malim slovima
+  TAGS[tag.key.toLowerCase()] = {
     label: tag.label,
     color: tag.color
   };
@@ -39,14 +39,9 @@ posts = posts.sort(
 );
 
 const url = new URL(Astro.request.url);
-const activeTags = url.searchParams.getAll("tag").map(t => t.toLowerCase()); // Svi aktivni tagovi mala slova
+const activeTags = url.searchParams.getAll("tag").map(t => t.toLowerCase());
 
-// 🔍 DEBUG: Šta imamo?
-console.log('🔥 activeTags:', activeTags);
-console.log('📦 TAGS keys:', Object.keys(TAGS));
-console.log('🎨 TAGS objekat:', TAGS);
-
-// Filtriranje - post mora imati BILO KOJI od aktivnih tagova (case insensitive)
+// Filtriranje postova prema aktivnim tagovima
 if (activeTags.length > 0) {
   posts = posts.filter((post) => {
     const postTags = (post.data.tags ?? []).map(t => t.toLowerCase());
@@ -60,43 +55,19 @@ if (activeTags.length > 0) {
   <!-- HEADER FILTERS -->
   <Fragment slot="header-filters">
     <nav class="archive-filters">
+      <a href="/archive" class="filter-pill">SVE</a>
 
-      <!-- SVE -->
-      <a
-        href="/archive"
-        class={`filter-pill ${activeTags.length === 0 ? "active" : ""}`}
-      >
-        SVE
-      </a>
-
-      {Object.entries(TAGS).map(([key, value]) => {
-
-        const isActive = activeTags.includes(key); // Sad su sva mala slova
-        // 🔍 DEBUG za svaki filter
-        console.log(`🔍 Filter: ${key}, aktivan: ${isActive}, activeTags: ${activeTags}`);
-
-        const newTags = isActive
-          ? activeTags.filter(t => t !== key)
-          : [...activeTags, key];
-
-        const query = newTags.length
-          ? "?" + newTags.map(t => `tag=${t}`).join("&")
-          : "";
-
-        return (
-          <a
-            href={`/archive${query}`}
-            class={`filter-pill ${isActive ? "active" : ""}`}
-            style={`--tag-color: ${value.color}`}
-          >
-            {value.label.toUpperCase()}
-          </a>
-        );
-      })}
-
+      {Object.entries(TAGS).map(([key, value]) => (
+        <a
+          href={`/archive?tag=${key}`}
+          class="filter-pill"
+          style={`--tag-color: ${value.color}`}
+        >
+          {value.label.toUpperCase()}
+        </a>
+      ))}
     </nav>
   </Fragment>
-
 
   <!-- GRID -->
   <section class="archive-grid">
@@ -104,112 +75,71 @@ if (activeTags.length > 0) {
     <!-- FILTER TILE -->
     <div class="archive-item archive-item--filters">
       <div class="archive-filters-grid">
-        <a
-          href="/archive"
-          class={`filter-pill ${activeTags.length === 0 ? "active" : ""}`}
-        >
-          SVE
-        </a>
+        <a href="/archive" class="filter-pill">SVE</a>
 
-        {Object.entries(TAGS).map(([key, value]) => {
-
-          const isActive = activeTags.includes(key);
-          const newTags = isActive
-            ? activeTags.filter(t => t !== key)
-            : [...activeTags, key];
-          const query = newTags.length
-            ? "?" + newTags.map(t => `tag=${t}`).join("&")
-            : "";
-
-          return (
-            <a
-              href={`/archive${query}`}
-              class={`filter-pill ${isActive ? "active" : ""}`}
-              style={`--tag-color: ${value.color}`}
-            >
-              {value.label}
-            </a>
-          );
-        })}
+        {Object.entries(TAGS).map(([key, value]) => (
+          <a
+            href={`/archive?tag=${key}`}
+            class="filter-pill"
+            style={`--tag-color: ${value.color}`}
+          >
+            {value.label}
+          </a>
+        ))}
       </div>
     </div>
 
-
     <!-- POSTOVI -->
     {posts.map((post) => {
-
       const postTags = (post.data.tags ?? []).map(t => t.toLowerCase());
 
       return (
         <a
           href={`/texts/${post.id}`}
           class="archive-item"
-          style={`--tag-color: ${
-            TAGS[postTags[0]]?.color ?? "#999"
-          }`}
+          style={`--tag-color: ${TAGS[postTags[0]]?.color ?? "#999"}`}
         >
-
           <div class="archive-meta">
-
             <div class="archive-tags">
               {postTags.map((tag) => {
-
                 const tagData = TAGS[tag] ?? {
                   label: tag.toUpperCase(),
                   color: "#999",
                 };
-
                 return (
-                  <span
-                    class="archive-tag"
-                    style={`color: ${tagData.color}`}
-                  >
+                  <span class="archive-tag" style={`color: ${tagData.color}`}>
                     {tagData.label}
                   </span>
                 );
               })}
             </div>
-
-            <span class="archive-date">
-              {formatDate(post.data.date)}
-            </span>
-
+            <span class="archive-date">{formatDate(post.data.date)}</span>
           </div>
-
-          <h3 class="archive-title">
-            {post.data.title}
-          </h3>
-
-          {post.data.subtitle && (
-            <p class="archive-subtitle">
-              {post.data.subtitle}
-            </p>
-          )}
-
+          <h3 class="archive-title">{post.data.title}</h3>
+          {post.data.subtitle && <p class="archive-subtitle">{post.data.subtitle}</p>}
         </a>
       );
     })}
-
   </section>
-<script>
-  // Kad se stranica učita, proveri URL parametre
-  window.addEventListener('load', function() {
-    console.log('Stranica učitana sa tagovima:', window.location.search);
-  });
-  
-  // Osveži stranicu kad se promene URL parametri (kada klikneš na filter)
-  window.addEventListener('popstate', function() {
-    window.location.reload();
-  });
-  
-  // Prisilno osvežavanje za sve linkove sa filter-pill klasom
-  document.querySelectorAll('.filter-pill').forEach(link => {
-    link.addEventListener('click', function(e) {
-      // Dozvoli linku da radi svoje, ali ćemo ipak osvežiti
-      setTimeout(() => {
-        window.location.reload();
-      }, 100);
-    });
-  });
-</script>
+
+  <script>
+    // Jednostavan skript koji dodaje klasu "active" filterima na osnovu URL-a
+    (function() {
+      const params = new URLSearchParams(window.location.search);
+      const activeTags = params.getAll('tag');
+      
+      document.querySelectorAll('.filter-pill').forEach(pill => {
+        const href = pill.getAttribute('href');
+        if (href === '/archive' && activeTags.length === 0) {
+          pill.classList.add('active');
+        } else {
+          const match = href.match(/[?&]tag=([^&]+)/);
+          if (match && activeTags.includes(match[1])) {
+            pill.classList.add('active');
+          }
+        }
+      });
+    })();
+  </script>
+
 </BaseLayout>
