@@ -165,42 +165,47 @@ html:not(.dark) body::before {
 }
 
 /* ================== MOBILE ================== */
+/* ================== MOBILE ================== */
 @media (max-width: 768px) {
   
   /* Ghost naslov - povećavaj dok ne nadjes dobru vrednost */
   .reader-brand {
-    font-size: 4rem;  /* Probaj 3.5rem, 3.8rem, 4rem, 4.2rem */
+    font-size: 4rem;
     letter-spacing: 0.2em;
   }
   
-  /* Smanjen padding u headeru */
+  /* Header - smanjen padding da bude uz ivice */
   .reader-header-inner {
-    padding: 0 0.5rem;
+    padding: 0 0.2rem;
   }
   
-  /* Veća strelica za nazad */
+  /* Veća strelica za nazad - centrirana vertikalno */
   .nav-back {
+    font-size: 2.2rem !important;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    line-height: 1;
+  }
+  
+  /* Dark ikonica - veća i pomerena desno */
+  .theme-toggle {
     font-size: 2rem !important;
     width: 48px;
     height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-  
-  /* Veća dark ikonica */
-  .theme-toggle {
-    font-size: 1.6rem !important;
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    margin-right: 0.2rem;
   }
   
   /* Manji padding na article */
   .article-main {
-    padding: 0.5rem 1rem 4rem;
+    padding: 0.5rem 0.8rem 4rem;
   }
   
   /* Manji naslov na mobilnom */
