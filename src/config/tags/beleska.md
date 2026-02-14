@@ -1,5 +1,5 @@
 ---
 key: beleska
 label: Beleska
-color: '#ff8040'
+color: '#dd62b5'
 ---
