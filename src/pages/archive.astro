@@ -124,6 +124,7 @@ if (activeTags.length > 0) {
 
   <script>
     (function() {
+      // Aktivni tagovi iz URL-a
       const params = new URLSearchParams(window.location.search);
       const activeTags = params.getAll('tag');
       
@@ -140,13 +141,13 @@ if (activeTags.length > 0) {
         }
       });
 
-      // 🔥 FORSIRANO OSVEŽAVANJE NAKON KLIKA
+      // OSVEŽAVANJE NAKON KLIKA
       document.querySelectorAll('.filter-pill').forEach(pill => {
         pill.addEventListener('click', function(e) {
-          // Sačekaj malo da se URL promeni, pa osveži
+          // Pusti link da promeni URL, pa osveži
           setTimeout(() => {
             window.location.reload();
-          }, 100);
+          }, 50);
         });
       });
     })();
