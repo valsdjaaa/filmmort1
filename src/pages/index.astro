@@ -10,7 +10,6 @@ const posts = (await getCollection("texts"))
 <BaseLayout title="Film Mort" page="home">
   <section class="list">
     {posts.map(post => {
-      // Samo post.id, bez replace (jer ID nema .md ekstenziju)
       const slug = post.id;
       return (
         <a
@@ -18,7 +17,6 @@ const posts = (await getCollection("texts"))
           class={`row-link row ${post.data.tags?.[0] || ""}`}
         >
           <div class="row-inner">
-
             <div class="cell date">
               {new Date(post.data.date).toLocaleDateString("sr-Latn-RS", {
                 weekday: "long",
@@ -27,28 +25,25 @@ const posts = (await getCollection("texts"))
                 year: "numeric",
               })}
             </div>
-
             <div class="cell tag">
               {post.data.tags?.[0]?.toUpperCase()}
             </div>
-
             <div class="cell content">
               {post.data.kicker && (
                 <div class="kicker">{post.data.kicker}</div>
               )}
-
               <div class="title">{post.data.title}</div>
-
               {post.data.subtitle && (
                 <div class="subtitle">{post.data.subtitle}</div>
               )}
             </div>
-
           </div>
-		  <div data-netlify-identity-menu></div>
-<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
         </a>
       );
     })}
   </section>
+
+  <!-- WIDGET - OVDE, NAKON PETLJE -->
+  <div data-netlify-identity-menu></div>
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </BaseLayout>
