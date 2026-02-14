@@ -526,6 +526,10 @@ main {
 /* ===================== MOBILE ==================== */
 /* ================================================= */
 
+/* ================================================= */
+/* ===================== MOBILE ==================== */
+/* ================================================= */
+
 @media (max-width: 768px) {
   
   /* ===== HEADER ===== */
@@ -558,27 +562,39 @@ main {
     overflow-x: auto;
     white-space: nowrap;
     -webkit-overflow-scrolling: touch;
-    padding: 0.3rem 0.5rem;  /* Smanjen padding */
+    padding: 0.15rem 0.5rem;
     position: sticky;
     top: 0;
-    background: #fff;
+    background: #000;
     z-index: 10;
-    border-bottom: 1px solid var(--line);
+    border-bottom: 1px solid #333;
+    margin-top: -1px;
   }
   
   .mobile-filters .archive-filters {
     display: flex !important;
     flex-wrap: nowrap;
-    gap: 0.3rem;  /* Smanjen gap */
+    gap: 0.2rem;
     margin: 0;
+    align-items: center;
+    min-height: 32px;
   }
   
   .mobile-filters .filter-pill {
     display: inline-block;
     white-space: nowrap;
-    margin-right: 0.3rem;
-    padding: 0.25rem 0.6rem;  /* Smanjen padding vertikalno */
-    font-size: 0.7rem;
+    margin-right: 0.2rem;
+    padding: 0.2rem 0.5rem;
+    font-size: 0.65rem;
+    line-height: 1.2;
+    color: #aaa;
+    border: 1px solid transparent;
+  }
+  
+  .mobile-filters .filter-pill.active {
+    background: var(--tag-color) !important;
+    color: #000 !important;
+    border-color: var(--tag-color);
   }
   
   /* Sakrij header filtere (ako postoje) */
@@ -600,63 +616,79 @@ main {
   }
   
   .archive-item {
-    padding: 0.6rem;  /* Smanjen padding */
+    padding: 0.6rem;
   }
   
   .archive-meta {
-    font-size: 0.5rem;  /* Smanjen font */
+    font-size: 0.5rem;
   }
   
-  /* Manji podnaslovi u arhivi */
   .archive-subtitle {
-    font-size: 0.7rem !important;  /* Smanjen sa 0.8rem */
+    font-size: 0.7rem !important;
     line-height: 1.2;
     margin-top: 0.2rem;
   }
   
   /* ===== ARTICLE STRANA ===== */
   .article-title {
-    font-size: clamp(1.5rem, 5vw, 2rem) !important;  /* Smanjen sa 1.8rem */
+    font-size: clamp(1.8rem, 5vw, 2.2rem) !important;  /* Povećano malo */
     word-break: break-word;
     padding: 0 0.5rem;
     opacity: 0.9;
-    text-shadow: 0 0 5px rgba(255,255,255,0.5);
   }
   
-  /* Manji podnaslov u article */
   .article-subtitle {
-    font-size: 0.9rem !important;  /* Smanjen sa 1rem */
+    font-size: 1rem !important;
     padding: 0 0.5rem;
   }
   
   /* ===== DARK MODE IKONICA ===== */
-.dark-mode-toggle {
-  width: 48px !important;  /* Povećano sa 40px */
-  height: 48px !important;  /* Povećano sa 40px */
-  font-size: 1.6rem !important;  /* Povećano sa 1.2rem */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+  .dark-mode-toggle {
+    width: 48px !important;
+    height: 48px !important;
+    font-size: 1.6rem !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent !important;
+    color: #fff !important;
+  }
   
   /* ===== POČETNA STRANA - LISTA ===== */
   .row-inner {
-    grid-template-columns: 80px 60px 1fr;  /* Smanjene kolone */
-    gap: 0.3rem;
-    padding: 0 0.3rem;
+    grid-template-columns: 70px 60px 1fr;  /* Datum manji */
+    gap: 0.2rem;
+    padding: 0 0.2rem;
   }
   
-  .cell {
-    padding: 0.8rem 0.3rem;
+  .cell.date {
+    font-size: 0.6rem !important;  /* Smanjen datum */
+    padding-right: 0.2rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .cell.tag {
+    font-size: 0.6rem !important;
+    padding: 0 0.2rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 55px;  /* Ograničeno da ne izlazi */
+  }
+  
+  .cell.content {
+    padding-left: 0.2rem;
   }
   
   .title {
-    font-size: clamp(1.2rem, 3.5vw, 1.6rem);  /* Smanjen font */
+    font-size: clamp(1.2rem, 3.5vw, 1.5rem);
+    line-height: 1.2;
   }
   
-  /* Manji podnaslov na mainu */
   .subtitle {
-    font-size: 0.8rem !important;  /* Smanjen sa 0.9rem */
+    font-size: 0.8rem !important;
     margin-top: 0.1rem;
   }
   
@@ -666,7 +698,7 @@ main {
   }
   
   .about-tile {
-    padding: 0.8rem;  /* Smanjen padding */
-    font-size: 0.8rem;  /* Smanjen font */
+    padding: 0.8rem;
+    font-size: 0.8rem;
   }
 }
