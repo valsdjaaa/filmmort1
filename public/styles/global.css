@@ -537,10 +537,10 @@ main {
     height: auto;
 	margin-bottom: 0;
   }
-  .site-header .film-layer {
-  background-size: auto 80px;
+
+  .site-header-inner {
+  height: 80px;
 }
-  
   .site-title {
     margin-left: 0.2rem;
   }
