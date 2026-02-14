@@ -3,7 +3,7 @@ backend:
   repo: valsdjaaa/filmmort1
   branch: main
   base_url: https://cybernetic-cms-auth.nebojsa-beat.workers.dev
-  auth_endpoint: /api/auth
+auth_endpoint: /auth  # ← SAMO OVO, ništa drugo
 
 # Ostatak tvog config fajla (media_folder, collections) ostaje POTPUNO ISTI
 media_folder: "public/images"
