@@ -41,6 +41,11 @@ posts = posts.sort(
 const url = new URL(Astro.request.url);
 const activeTags = url.searchParams.getAll("tag").map(t => t.toLowerCase()); // Svi aktivni tagovi mala slova
 
+// 🔍 DEBUG: Šta imamo?
+console.log('🔥 activeTags:', activeTags);
+console.log('📦 TAGS keys:', Object.keys(TAGS));
+console.log('🎨 TAGS objekat:', TAGS);
+
 // Filtriranje - post mora imati BILO KOJI od aktivnih tagova (case insensitive)
 if (activeTags.length > 0) {
   posts = posts.filter((post) => {
@@ -67,6 +72,8 @@ if (activeTags.length > 0) {
       {Object.entries(TAGS).map(([key, value]) => {
 
         const isActive = activeTags.includes(key); // Sad su sva mala slova
+        // 🔍 DEBUG za svaki filter
+        console.log(`🔍 Filter: ${key}, aktivan: ${isActive}, activeTags: ${activeTags}`);
 
         const newTags = isActive
           ? activeTags.filter(t => t !== key)
