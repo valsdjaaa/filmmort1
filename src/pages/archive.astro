@@ -1,9 +1,14 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import tagsArray from '/src/config/tags.json';
 import { getCollection } from "astro:content";
 
-
+// Dinamički učitaj sve tagove iz CMS foldera
+const tagFiles = import.meta.glob('../config/tags/*.json', { eager: true });
+const tagsArray = Object.values(tagFiles).map(file => ({
+  key: file.key,
+  label: file.label,
+  color: file.color
+}));
 
 // Konvertuj niz u objekat za lakše korišćenje
 const TAGS = {};
