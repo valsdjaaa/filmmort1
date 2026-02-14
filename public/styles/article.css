@@ -54,7 +54,6 @@ html.dark .reader-header {
 }
 
 /* NAZAD */
-
 .nav-back {
   appearance: none;
   -webkit-appearance: none;
@@ -82,7 +81,6 @@ html.dark .reader-header {
 }
 
 /* GHOST NASLOV */
-
 .reader-brand {
   position: absolute;
   left: 50%;
@@ -101,7 +99,6 @@ html.dark .reader-header {
 }
 
 /* DESNO */
-
 .reader-actions {
   display: flex;
   align-items: center;
@@ -124,14 +121,16 @@ html.dark .reader-header {
 .article-main {
   max-width: 66ch;
   margin: 0 auto;
-  padding: 1rem 1.5rem 6rem;  /* Smanjen padding-top sa 4rem na 1rem */
+  padding: 1rem 1.5rem 6rem;  /* Smanjen gornji padding sa 4rem na 1rem */
+  position: relative;
+  z-index: 1;
 }
 
 .article-main h1 {
   font-size: 2.6rem;
   font-weight: 600;
   margin: 0;
-  margin-top: 0;  /* Osigurava da nema margin-top */
+  margin-top: 0;  /* Osigurava da nema razmaka */
 }
 
 .article-main p {
@@ -145,43 +144,7 @@ html.dark .reader-header {
   margin: 3rem auto;
 }
 
-/* ================== MOBILE ================== */
-
-@media (max-width: 768px) {
-  
-  /* Manji ghost naslov na mobilnom */
-  .reader-brand {
-    font-size: 3.5rem;
-    letter-spacing: 0.2em;
-  }
-  
-  /* Još manji padding na article */
-  .article-main {
-    padding: 0.5rem 1rem 4rem;  /* Gornji padding sveden na minimum */
-  }
-  
-  /* Manji naslov na mobilnom */
-  .article-main h1 {
-    font-size: 1.8rem !important;
-    line-height: 1.2;
-  }
-  
-  /* Dark ikonica veća */
-  .theme-toggle {
-    font-size: 1.6rem !important;
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  /* Smanji padding u headeru */
-  .reader-header-inner {
-    padding: 0 0.8rem;
-  }
-}
-
+/* ================== BACKGROUND PATTERN ================== */
 html:not(.dark) body::before {
   content: "";
   position: fixed;
@@ -201,7 +164,48 @@ html:not(.dark) body::before {
   z-index: 2;
 }
 
-.article-main {
-  position: relative;
-  z-index: 1;
+/* ================== MOBILE ================== */
+@media (max-width: 768px) {
+  
+  /* Ghost naslov - povećavaj dok ne nadjes dobru vrednost */
+  .reader-brand {
+    font-size: 4rem;  /* Probaj 3.5rem, 3.8rem, 4rem, 4.2rem */
+    letter-spacing: 0.2em;
+  }
+  
+  /* Smanjen padding u headeru */
+  .reader-header-inner {
+    padding: 0 0.5rem;
+  }
+  
+  /* Veća strelica za nazad */
+  .nav-back {
+    font-size: 2rem !important;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Veća dark ikonica */
+  .theme-toggle {
+    font-size: 1.6rem !important;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Manji padding na article */
+  .article-main {
+    padding: 0.5rem 1rem 4rem;
+  }
+  
+  /* Manji naslov na mobilnom */
+  .article-main h1 {
+    font-size: 1.8rem !important;
+    line-height: 1.2;
+  }
 }

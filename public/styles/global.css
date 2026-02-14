@@ -584,8 +584,9 @@ main {
     display: inline-block;
     white-space: nowrap;
     margin-right: 0.2rem;
-    padding: 0.2rem 0.5rem;
-    font-size: 0.65rem;
+      padding: 0.15rem 0.4rem;
+      font-size: 0.6rem !important;
+	    letter-spacing: 0.18em;
     line-height: 1.2;
     color: #aaa;
     border: 1px solid transparent;
@@ -702,4 +703,14 @@ main {
     padding: 0.8rem;
     font-size: 0.8rem;
   }
+  /* SVE filter - bela boja */
+.mobile-filters .filter-pill:first-child {
+  color: #fff !important;
+  border-color: #666;
+}
+
+.mobile-filters .filter-pill:first-child.active {
+  background: #fff !important;
+  color: #000 !important;
+}
 }
