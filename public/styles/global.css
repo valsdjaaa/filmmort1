@@ -562,9 +562,10 @@ main {
 /* ===== MOBILNI FILTERI ===== */
 .mobile-filters {
   display: flex !important;
+  justify-content: center;
   overflow-x: auto;
   white-space: nowrap;
-  padding: 0;
+  padding: 4px 0;
   margin: 0;
   background: #000;
   border-bottom: 1px solid var(--line);
@@ -574,19 +575,16 @@ main {
   display: flex;
   gap: 0.3rem;
   padding: 0 0.3rem;
-  height: 32px;
+
   margin: 0;
   justify-content: center;
   align-items: center;
 }
 
 .mobile-filters .filter-pill {
-  padding: 0.15rem 0.35rem;
+  padding: 0.12rem 0.4rem;
   font-size: 0.55rem;
   line-height: 1;
-  height: 26px;
-  display: flex;
-  align-items: center;
 }
   
   /* SVE filter - bela boja */
