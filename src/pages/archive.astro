@@ -191,5 +191,25 @@ if (activeTags.length > 0) {
     })}
 
   </section>
-
+<script>
+  // Kad se stranica učita, proveri URL parametre
+  window.addEventListener('load', function() {
+    console.log('Stranica učitana sa tagovima:', window.location.search);
+  });
+  
+  // Osveži stranicu kad se promene URL parametri (kada klikneš na filter)
+  window.addEventListener('popstate', function() {
+    window.location.reload();
+  });
+  
+  // Prisilno osvežavanje za sve linkove sa filter-pill klasom
+  document.querySelectorAll('.filter-pill').forEach(link => {
+    link.addEventListener('click', function(e) {
+      // Dozvoli linku da radi svoje, ali ćemo ipak osvežiti
+      setTimeout(() => {
+        window.location.reload();
+      }, 100);
+    });
+  });
+</script>
 </BaseLayout>
