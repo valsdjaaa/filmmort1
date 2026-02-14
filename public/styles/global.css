@@ -529,18 +529,20 @@ main {
     height: 80px;
   }
   
+  /* Vrati FILM MORT malo levo */
   .site-title {
-    margin-left: 0.8rem;  /* Odlepi naslov od leve ivice */
+    margin-left: 0.2rem;  /* Smanjeno sa 0.8rem na 0.2rem */
   }
   
   .site-title > a {
     font-size: clamp(2.5rem, 7vw, 4rem);
   }
   
+  /* Pomeri Arhiva i About malo desno (samo oni, ne i kvadrati) */
   .site-nav {
     transform: translateY(20px);
     margin-left: 0.5rem;
-    margin-right: 0.8rem;  /* Odlepi navigaciju od desne ivice */
+    margin-right: 1rem;  /* Povećano sa 0.8rem na 1rem */
     gap: 0.8rem;
   }
   
@@ -555,7 +557,7 @@ main {
     overflow-x: auto;
     white-space: nowrap;
     -webkit-overflow-scrolling: touch;
-    margin: 0 0.8rem;  /* Malo od ivice */
+    margin: 0 0.5rem;
   }
   
   /* Filteri u arhivi - horizontalni scroll */
@@ -565,7 +567,7 @@ main {
     -webkit-overflow-scrolling: touch;
     flex-wrap: nowrap;
     justify-content: flex-start;
-    padding: 0.5rem 0.8rem;  /* Padding sa strane */
+    padding: 0.5rem 0.5rem;
     position: sticky;
     top: 0;
     background: #fff;
@@ -586,9 +588,12 @@ main {
   }
   
   /* ===== ARHIVA GRID ===== */
+  /* Kvadrati idu od ivice do ivice */
   .archive-grid {
     grid-template-columns: repeat(2, 1fr);
-    padding: 0 0.8rem;  /* Malo od ivice */
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
   }
   
   .archive-item {
@@ -601,19 +606,18 @@ main {
   
   /* ===== ARTICLE STRANA ===== */
   .article-title {
-    font-size: clamp(2rem, 8vw, 3rem);  /* Manji naslov */
+    font-size: clamp(1.8rem, 6vw, 2.5rem) !important;  /* Prisilno manji */
     word-break: break-word;
-    padding: 0 0.8rem;  /* Odvojen od ivice */
-    /* Polu providan efekat (ako hoćeš da se nazire) */
+    padding: 0 0.8rem;
     opacity: 0.9;
     text-shadow: 0 0 5px rgba(255,255,255,0.5);
   }
   
   /* ===== DARK MODE IKONICA ===== */
   .dark-mode-toggle {
-    width: 44px;  /* Minimum za tap */
-    height: 44px;
-    font-size: 1.2rem;
+    width: 44px !important;  /* Prisilno veća */
+    height: 44px !important;
+    font-size: 1.4rem !important;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -623,11 +627,11 @@ main {
   .row-inner {
     grid-template-columns: 100px 80px 1fr;
     gap: 0.5rem;
-    padding: 0 0.8rem;  /* Odvojeno od ivice */
+    padding: 0 0.5rem;
   }
   
   .cell {
-    padding: 1rem 0.8rem;
+    padding: 1rem 0.5rem;
   }
   
   .title {
