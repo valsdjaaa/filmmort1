@@ -658,3 +658,10 @@ main {
     font-size: 0.9rem;
   }
 }
+/* TEST - Ovo će obojiti filtere u crveno da ih uočiš */
+.header-filters {
+  background: red !important;
+  padding: 10px !important;
+  margin: 10px !important;
+  display: flex !important;
+}
