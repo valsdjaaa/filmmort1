@@ -655,28 +655,29 @@ main {
   }
   
   /* ===== POČETNA STRANA - LISTA ===== */
-  .row-inner {
-    grid-template-columns: 70px 60px 1fr;  /* Datum manji */
-    gap: 0.2rem;
-    padding: 0 0.2rem;
-  }
-  
-  .cell.date {
-    font-size: 0.6rem !important;  /* Smanjen datum */
-    padding-right: 0.2rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  
-  .cell.tag {
-    font-size: 0.6rem !important;
-    padding: 0 0.2rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 55px;  /* Ograničeno da ne izlazi */
-  }
+.row-inner {
+  grid-template-columns: 75px 60px 1fr;  /* Malo veći datum */
+  gap: 0.2rem;
+  padding: 0 0.2rem;
+}
+
+.cell.date {
+  font-size: 0.55rem !important;  /* Manji font */
+  padding-right: 0.1rem;
+  white-space: normal;  /* Dozvoli prelamanje */
+  word-break: break-word;
+  line-height: 1.2;
+  text-align: left;  /* Poravnaj levo */
+}
+
+.cell.tag {
+  font-size: 0.55rem !important;
+  padding: 0 0.1rem;
+  white-space: normal;
+  word-break: break-word;
+  line-height: 1.2;
+  max-width: 55px;
+}
   
   .cell.content {
     padding-left: 0.2rem;
