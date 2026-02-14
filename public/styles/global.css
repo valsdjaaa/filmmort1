@@ -550,29 +550,26 @@ main {
   
   /* ===== FILTERI ===== */
   /* Pokaži header filtere na mobilnom */
+
   .header-filters {
     display: flex !important;
     overflow-x: auto;
     white-space: nowrap;
-    -webkit-overflow-scrolling: touch;
     margin: 0 0.5rem;
-    /* Dodato da se vidi gde su */
-    min-height: 44px;
-    background: rgba(255,0,0,0.1); /* Privremeno da vidiš gde su */
   }
   
   .header-filters .filter-pill {
     display: inline-block;
     margin-right: 0.5rem;
-    padding: 0.5rem 1rem;
-    font-size: 0.8rem;
-    white-space: nowrap;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.7rem;
   }
   
   /* Sakrij originalne filtere u arhivi */
   .archive-filters {
     display: none;
   }
+}
   
   /* Sakrij filter tile (prvu kocku) na mobilnom */
   .archive-item--filters {
@@ -657,11 +654,4 @@ main {
     padding: 1rem;
     font-size: 0.9rem;
   }
-}
-/* TEST - Ovo će obojiti filtere u crveno da ih uočiš */
-.header-filters {
-  background: red !important;
-  padding: 10px !important;
-  margin: 10px !important;
-  display: flex !important;
 }
