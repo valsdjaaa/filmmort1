@@ -23,3 +23,5 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 interstellar-ice/
+# Local Netlify folder
+.netlify

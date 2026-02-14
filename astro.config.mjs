@@ -6,7 +6,7 @@ import netlify from '@astrojs/netlify';
 
 export default defineConfig({
   site: 'https://example.com',
-  output: 'hybrid',  // ← DODAJ OVO
-  adapter: netlify(), // ← DODAJ OVO
+  output: 'server',  // ← PROMENI U server
+  adapter: netlify(),
   integrations: [mdx(), sitemap()],
 });
