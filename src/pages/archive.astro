@@ -41,11 +41,26 @@ posts = posts.sort(
 
 <BaseLayout title="Arhiva" page="archive">
 
-  <!-- HEADER FILTERS -->
+  <!-- MOBILNI FILTERI (samo za mobilni) -->
+  <div class="mobile-filters">
+    <nav class="archive-filters">
+      <a href="/archive" class="filter-pill">SVE</a>
+      {Object.entries(TAGS).map(([key, value]) => (
+        <a
+          href={`/archive?tag=${key}`}
+          class="filter-pill"
+          style={`--tag-color: ${value.color}`}
+        >
+          {value.label.toUpperCase()}
+        </a>
+      ))}
+    </nav>
+  </div>
+
+  <!-- HEADER FILTERS (za slot u headeru, ako ga budeš koristio) -->
   <Fragment slot="header-filters">
     <nav class="archive-filters">
       <a href="/archive" class="filter-pill">SVE</a>
-
       {Object.entries(TAGS).map(([key, value]) => (
         <a
           href={`/archive?tag=${key}`}
@@ -61,11 +76,10 @@ posts = posts.sort(
   <!-- GRID -->
   <section class="archive-grid">
 
-    <!-- FILTER TILE -->
+    <!-- FILTER TILE (desktop, prva kocka) -->
     <div class="archive-item archive-item--filters">
       <div class="archive-filters-grid">
         <a href="/archive" class="filter-pill">SVE</a>
-
         {Object.entries(TAGS).map(([key, value]) => (
           <a
             href={`/archive?tag=${key}`}
@@ -114,16 +128,13 @@ posts = posts.sort(
 
   <script is:inline>
     (function() {
-      // Sačekaj da se DOM učita
       document.addEventListener('DOMContentLoaded', function() {
         const filterPills = document.querySelectorAll('.filter-pill');
         const archiveItems = document.querySelectorAll('.archive-item:not(.archive-item--filters)');
         
-        // Aktivni filteri iz URL-a
         const params = new URLSearchParams(window.location.search);
         let activeFilters = params.getAll('tag');
         
-        // Funkcija za filtriranje
         function filterPosts() {
           archiveItems.forEach(item => {
             const itemTags = item.dataset.tags?.split(' ') || [];
@@ -139,7 +150,6 @@ posts = posts.sort(
           });
         }
         
-        // Funkcija za ažuriranje aktivnih klasa na filterima
         function updateActiveFilters() {
           filterPills.forEach(pill => {
             pill.classList.remove('active');
@@ -156,7 +166,6 @@ posts = posts.sort(
           });
         }
         
-        // Dodaj event listenere na filtere
         filterPills.forEach(pill => {
           pill.addEventListener('click', function(e) {
             e.preventDefault();
@@ -180,21 +189,16 @@ posts = posts.sort(
             
             activeFilters = newFilters;
             
-            // Ažuriraj URL bez osvežavanja
             const url = new URL(window.location);
             url.searchParams.delete('tag');
             newFilters.forEach(tag => url.searchParams.append('tag', tag));
             window.history.pushState({}, '', url);
             
-            // Ažuriraj aktivne klase
             updateActiveFilters();
-            
-            // Filtriraj postove
             filterPosts();
           });
         });
         
-        // Inicijalno postavi aktivne filtere
         updateActiveFilters();
         filterPosts();
       });

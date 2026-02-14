@@ -548,24 +548,38 @@ main {
     font-size: 0.6rem;
   }
   
-  /* ===== FILTERI ===== */
-  .header-filters {
-    display: flex !important;
+  /* ===== MOBILNI FILTERI (novi, izvan grida) ===== */
+  .mobile-filters {
+    display: block !important;
     overflow-x: auto;
     white-space: nowrap;
-    margin: 0 0.5rem;
+    -webkit-overflow-scrolling: touch;
+    padding: 0.5rem 1rem;
+    position: sticky;
+    top: 0;
+    background: #fff;
+    z-index: 10;
+    border-bottom: 1px solid var(--line);
   }
   
-  .header-filters .filter-pill {
+  .mobile-filters .archive-filters {
+    display: flex !important;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+    margin: 0;
+  }
+  
+  .mobile-filters .filter-pill {
     display: inline-block;
+    white-space: nowrap;
     margin-right: 0.5rem;
     padding: 0.4rem 0.8rem;
     font-size: 0.7rem;
   }
   
-  /* Sakrij originalne filtere u arhivi */
-  .archive-filters {
-    display: none;
+  /* Sakrij header filtere (ako postoje) */
+  .header-filters {
+    display: none !important;
   }
   
   /* Sakrij filter tile (prvu kocku) na mobilnom */
