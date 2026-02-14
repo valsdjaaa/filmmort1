@@ -2,7 +2,7 @@ backend:
   name: github
   repo: valsdjaaa/filmmort1
   branch: main
-  base_url: https://filmmort1.pages.dev
+  base_url: https://cybernetic-cms-auth.nebojsa-beat.workers.dev
   auth_endpoint: /api/auth
 
 # Ostatak tvog config fajla (media_folder, collections) ostaje POTPUNO ISTI
