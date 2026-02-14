@@ -28,6 +28,23 @@ const { title = "", page = "" } = Astro.props;
     <main>
       <slot />
     </main>
-<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+  (function() {
+    // Prvo proveri da li već postoji
+    if (window.netlifyIdentity) return;
+    
+    const script = document.createElement('script');
+    script.src = 'https://identity.netlify.com/v1/netlify-identity-widget.js';
+    script.defer = true;
+    script.onload = () => {
+      console.log('Widget loaded');
+      window.netlifyIdentity.init();
+    };
+    script.onerror = (e) => {
+      console.error('Widget failed to load', e);
+    };
+    document.head.appendChild(script);
+  })();
+</script>
   </body>
 </html>
