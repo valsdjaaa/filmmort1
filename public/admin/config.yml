@@ -1,6 +1,6 @@
 backend:
-  name: github
-  repo: valsdjaaa/filmmort1
+  name: git-gateway
+
   branch: main
   identity: true
 
