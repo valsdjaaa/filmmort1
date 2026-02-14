@@ -7,7 +7,6 @@ const tagFiles = import.meta.glob('../config/tags/*.md', { eager: true });
 
 // Parsiraj frontmatter iz .md fajlova
 const tagsArray = Object.entries(tagFiles).map(([path, file]) => {
-  // Astro za .md fajlove automatski parsira frontmatter u file.frontmatter
   const frontmatter = file.frontmatter || {};
   
   return {
@@ -20,7 +19,7 @@ const tagsArray = Object.entries(tagFiles).map(([path, file]) => {
 // Napravi TAGS objekat za filtere
 const TAGS = {};
 tagsArray.forEach(tag => {
-  TAGS[tag.key] = {
+  TAGS[tag.key.toLowerCase()] = {  // Čuvaj sve ključeve malim slovima
     label: tag.label,
     color: tag.color
   };
@@ -40,12 +39,12 @@ posts = posts.sort(
 );
 
 const url = new URL(Astro.request.url);
-const activeTags = url.searchParams.getAll("tag");
+const activeTags = url.searchParams.getAll("tag").map(t => t.toLowerCase()); // Svi aktivni tagovi mala slova
 
-// Filtriranje - post mora imati BILO KOJI od aktivnih tagova
+// Filtriranje - post mora imati BILO KOJI od aktivnih tagova (case insensitive)
 if (activeTags.length > 0) {
   posts = posts.filter((post) => {
-    const postTags = post.data.tags ?? [];
+    const postTags = (post.data.tags ?? []).map(t => t.toLowerCase());
     return activeTags.some(tag => postTags.includes(tag));
   });
 }
@@ -67,7 +66,7 @@ if (activeTags.length > 0) {
 
       {Object.entries(TAGS).map(([key, value]) => {
 
-        const isActive = activeTags.includes(key);
+        const isActive = activeTags.includes(key); // Sad su sva mala slova
 
         const newTags = isActive
           ? activeTags.filter(t => t !== key)
@@ -132,7 +131,7 @@ if (activeTags.length > 0) {
     <!-- POSTOVI -->
     {posts.map((post) => {
 
-      const postTags = post.data.tags ?? [];
+      const postTags = (post.data.tags ?? []).map(t => t.toLowerCase());
 
       return (
         <a

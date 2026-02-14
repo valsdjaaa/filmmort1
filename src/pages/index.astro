@@ -1,7 +1,29 @@
-
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
+
+// Dinamički učitaj sve tagove iz CMS foldera
+const tagFiles = import.meta.glob('../config/tags/*.md', { eager: true });
+
+// Parsiraj frontmatter iz .md fajlova
+const tagsArray = Object.entries(tagFiles).map(([path, file]) => {
+  const frontmatter = file.frontmatter || {};
+  
+  return {
+    key: frontmatter.key || path.split('/').pop().replace('.md', ''),
+    label: frontmatter.label || frontmatter.key || 'Nepoznat',
+    color: frontmatter.color || '#999'
+  };
+});
+
+// Napravi TAGS objekat za boje i labele
+const TAGS = {};
+tagsArray.forEach(tag => {
+  TAGS[tag.key] = {
+    label: tag.label,
+    color: tag.color
+  };
+});
 
 const posts = (await getCollection("texts"))
   .sort((a, b) => new Date(b.data.date) - new Date(a.data.date))
@@ -12,10 +34,16 @@ const posts = (await getCollection("texts"))
   <section class="list">
     {posts.map(post => {
       const slug = post.id;
+      const postTags = post.data.tags ?? [];
+      const primaryTag = postTags[0]?.toLowerCase();
+      const tagColor = TAGS[primaryTag]?.color ?? '#999';
+      const tagLabel = TAGS[primaryTag]?.label ?? postTags[0]?.toUpperCase() ?? '';
+
       return (
         <a
           href={`/texts/${slug}`}
-          class={`row-link row ${post.data.tags?.[0] || ""}`}
+          class={`row-link row ${primaryTag || ""}`}
+          style={`--tag-color: ${tagColor}`}
         >
           <div class="row-inner">
             <div class="cell date">
@@ -26,8 +54,8 @@ const posts = (await getCollection("texts"))
                 year: "numeric",
               })}
             </div>
-            <div class="cell tag">
-              {post.data.tags?.[0]?.toUpperCase()}
+            <div class="cell tag" style={`color: ${tagColor}`}>
+              {tagLabel}
             </div>
             <div class="cell content">
               {post.data.kicker && (
@@ -43,6 +71,4 @@ const posts = (await getCollection("texts"))
       );
     })}
   </section>
-
-
 </BaseLayout>
