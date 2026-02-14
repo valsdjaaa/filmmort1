@@ -4,7 +4,7 @@ import { getCollection } from "astro:content";
 
 // Dinamički učitaj sve tagove iz CMS foldera
 // Dinamički učitaj sve tagove iz CMS foldera
-const tagFiles = import.meta.glob('../config/tags/*.json', { eager: true });
+const tagFiles = import.meta.glob('../config/tags/*.md', { eager: true });
 
 // Pretvori u niz tagova
 const tagsArray = Object.entries(tagFiles).map(([path, file]) => ({
@@ -21,8 +21,7 @@ tagsArray.forEach(tag => {
     color: tag.color
   };
 });
-console.log('TAGOVI IZ FOLDERA:', tagsArray);
-console.log('TAGS OBJEKAT:', TAGS);
+
 
 const formatDate = (date) =>
   new Date(date).toLocaleDateString("sr-Latn-RS", {
