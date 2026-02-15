@@ -57,21 +57,7 @@ posts = posts.sort(
     </nav>
   </div>
 
-  <!-- HEADER FILTERS (za slot u headeru, ako ga budeš koristio) -->
-  <Fragment slot="header-filters">
-    <nav class="archive-filters">
-      <a href="/archive" class="filter-pill">SVE</a>
-      {Object.entries(TAGS).map(([key, value]) => (
-        <a
-          href={`/archive?tag=${key}`}
-          class="filter-pill"
-          style={`--tag-color: ${value.color}`}
-        >
-          {value.label.toUpperCase()}
-        </a>
-      ))}
-    </nav>
-  </Fragment>
+
 
   <!-- GRID -->
   <section class="archive-grid">
