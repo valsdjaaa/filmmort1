@@ -577,7 +577,7 @@ main {
   position: absolute;
   inset: 0;
   background-color: var(--tag-color);
-  opacity: 0.05;
+  opacity: 0.03;  /* Jedva primetno */
   pointer-events: none;
   z-index: 0;
 }
