@@ -538,9 +538,12 @@ main {
 	margin-bottom: 0;
   }
 
-  .site-header-inner {
+.site-header-inner {
   height: 80px;
+  align-items: flex-end;
+  padding-bottom: 6px;
 }
+
   .site-title {
     margin-left: 0.2rem;
   }
