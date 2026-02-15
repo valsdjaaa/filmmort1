@@ -2,6 +2,25 @@
 import ArticleLayout from "../../layouts/ArticleLayout.astro";
 import { getCollection } from "astro:content";
 
+// Učitaj tagove za boje
+const tagFiles = import.meta.glob('../config/tags/*.md', { eager: true });
+const tagsArray = Object.entries(tagFiles).map(([path, file]) => {
+  const frontmatter = file.frontmatter || {};
+  return {
+    key: frontmatter.key || path.split('/').pop().replace('.md', ''),
+    label: frontmatter.label || frontmatter.key || 'Nepoznat',
+    color: frontmatter.color || '#999'
+  };
+});
+
+const TAGS = {};
+tagsArray.forEach(tag => {
+  TAGS[tag.key] = {
+    label: tag.label,
+    color: tag.color
+  };
+});
+
 export async function getStaticPaths() {
   const posts = await getCollection("texts");
   
@@ -21,14 +40,27 @@ if (!post) {
   throw new Error(`Post not found: ${slug}`);
 }
 
-// Uzmi renderovani HTML iz post.rendered.html
 const contentHtml = post.rendered?.html || post.body;
 ---
 
 <ArticleLayout title={post.data.title}>
   <article class="article">
     <header class="article-header">
-      <h1 class="article-title">{post.data.title}</h1>
+      <div class="article-header-row">
+        <h1 class="article-title">{post.data.title}</h1>
+        {post.data.tags && post.data.tags.length > 0 && (
+          <div class="article-tags">
+            {post.data.tags.map(tag => {
+              const tagData = TAGS[tag] ?? { label: tag, color: '#999' };
+              return (
+                <span class="article-tag" style={`color: ${tagData.color}`}>
+                  {tagData.label}
+                </span>
+              );
+            })}
+          </div>
+        )}
+      </div>
       {post.data.subtitle && (
         <p class="article-subtitle">{post.data.subtitle}</p>
       )}

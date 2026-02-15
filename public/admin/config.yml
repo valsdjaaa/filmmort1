@@ -19,7 +19,15 @@ collections:
       - { label: "Subtitle", name: "subtitle", widget: "string", required: false }
       - { label: "Kicker", name: "kicker", widget: "string", required: false }
       - { label: "Pinned", name: "pinned", widget: "boolean", default: false, required: false }
-      - { label: "Tags", name: "tags", widget: "list", default: ["film"] }
+      - label: "Tagovi"
+        name: "tags"
+        widget: "relation"
+        collection: "tags"
+        search_fields: ["label"]
+        value_field: "key"
+        display_fields: ["label"]
+        multiple: true
+        required: false
       - { label: "Date", name: "date", widget: "datetime" }
       - { label: "Body", name: "body", widget: "markdown" }
 

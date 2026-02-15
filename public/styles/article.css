@@ -215,3 +215,19 @@ html:not(.dark) body::before {
     line-height: 1.2;
   }
 }
+.article-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.article-tags {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
