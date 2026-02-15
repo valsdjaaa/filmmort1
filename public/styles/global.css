@@ -401,8 +401,8 @@ main {
 
 
 .about-grid {
-  max-width: var(--max-width);
-  margin: 0 auto;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   border-top: 1px solid var(--line);
@@ -517,6 +517,9 @@ main {
   background: var(--tag-color, #aaa);
   opacity: 0.9;
   color: #000;
+}
+.mobile-filters {
+  display: none;
 }
 /* ================================================= */
 /* ===================== MOBILE ==================== */
