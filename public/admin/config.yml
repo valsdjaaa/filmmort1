@@ -32,3 +32,27 @@ collections:
       - { label: "Ključ (npr. film)", name: "key", widget: "string" }
       - { label: "Naziv za prikaz", name: "label", widget: "string" }
       - { label: "Boja", name: "color", widget: "color" }
+      
+      - name: "theme"
+    label: "Izgled sajta"
+    files:
+      - name: "theme"
+        label: "Boje i izgled"
+        file: "src/config/theme.json"
+        fields:
+          - label: "Pride mode (dugine boje)"
+            name: "prideMode"
+            widget: "boolean"
+            default: false
+          - label: "Boja celog naslova"
+            name: "titleColor"
+            widget: "color"
+            default: "#ffffff"
+            required: false
+          - label: "Pojedinačne boje"
+            name: "customColors"
+            widget: "list"
+            required: false
+            fields:
+              - { label: "Deo (film ili mort)", name: "part", widget: "select", options: ["film", "mort"] }
+              - { label: "Boja", name: "color", widget: "color" }

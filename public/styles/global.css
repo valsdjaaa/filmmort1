@@ -548,6 +548,24 @@ main {
 .mobile-filters {
   display: none;
 }
+/* Pride mode animacija */
+.site-header--film .logo.pride-mode .film,
+.site-header--film .logo.pride-mode .mort {
+  animation: pride 8s linear infinite;
+  background: linear-gradient(
+    124deg,
+    #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3
+  );
+  background-size: 1800% 1800%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@keyframes pride {
+  0% { background-position: 0% 0% }
+  100% { background-position: 100% 0% }
+}
 /* ================================================= */
 /* ===================== MOBILE ==================== */
 /* ================================================= */

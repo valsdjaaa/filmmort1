@@ -25,9 +25,20 @@ tagsArray.forEach(tag => {
   };
 });
 
-const posts = (await getCollection("texts"))
-  .sort((a, b) => new Date(b.data.date) - new Date(a.data.date))
-  .slice(0, 7);
+let posts = await getCollection("texts");
+
+// Sortiraj: prvo pinovani, onda po datumu
+posts = posts.sort((a, b) => {
+  // Pinovani idu prvi
+  if (a.data.pinned && !b.data.pinned) return -1;
+  if (!a.data.pinned && b.data.pinned) return 1;
+  
+  // Zatim po datumu (noviji prvi)
+  return new Date(b.data.date) - new Date(a.data.date);
+});
+
+// Uzmi prvih 7 (pinovani će ući među prvih 7 ako ih ima)
+posts = posts.slice(0, 7);
 ---
 
 <BaseLayout title="Film Mort" page="home">
@@ -42,7 +53,7 @@ const posts = (await getCollection("texts"))
       return (
         <a
           href={`/texts/${slug}`}
-          class={`row-link row ${primaryTag || ""}`}
+          class={`row-link row ${primaryTag || ""} ${post.data.pinned ? 'pinned' : ''}`}
           style={`--tag-color: ${tagColor}`}
         >
           <div class="row-inner">
@@ -61,10 +72,13 @@ const posts = (await getCollection("texts"))
               {post.data.kicker && (
                 <div class="kicker">{post.data.kicker}</div>
               )}
-              <div class="title">{post.data.title}</div>
-				<div class="subtitle">
-				  {post.data.subtitle ?? ""}
-				</div>
+              <div class="title">
+                {post.data.title}
+                {post.data.pinned && <span class="pin-indicator">📌</span>}
+              </div>
+              <div class="subtitle">
+                {post.data.subtitle ?? ""}
+              </div>
             </div>
           </div>
         </a>

@@ -1,9 +1,24 @@
-
 ---
 const { page = "" } = Astro.props;
+
+// Učitaj temu
+import themeData from '../config/theme.json';
+const theme = themeData;
+
+// Pomoćna funkcija za boju
+const getColor = (part) => {
+  if (theme.prideMode) return ''; // Pride mode ima poseban CSS
+  
+  // Ako ima pojedinačna boja za film/mort
+  const customColor = theme.customColors?.find(c => c.part === part)?.color;
+  if (customColor) return customColor;
+  
+  // Inače koristi titleColor ili belu
+  return theme.titleColor || '#ffffff';
+};
 ---
 
-<header class={`site-header site-header--film ${page}`}>
+<header class={`site-header site-header--film ${page} ${theme.prideMode ? 'pride-mode' : ''}`}>
 
   <div class="film-layer">
     <div class="dust dust-a"></div>
@@ -14,8 +29,12 @@ const { page = "" } = Astro.props;
   <div class="site-header-inner">
     <div class="site-title">
       <a href="/" class="logo">
-        <span class="film">FILM</span>
-        <span class="mort">MORT</span>
+        <span class="film" style={!theme.prideMode ? `color: ${getColor('film')};` : ''}>
+          FILM
+        </span>
+        <span class="mort" style={!theme.prideMode ? `color: ${getColor('mort')};` : ''}>
+          MORT
+        </span>
       </a>
     </div>
 
@@ -27,6 +46,26 @@ const { page = "" } = Astro.props;
 
 </header>
 
+<style is:global>
+  /* Pride mode animacija */
+  .site-header--film.pride-mode .logo .film,
+  .site-header--film.pride-mode .logo .mort {
+    animation: pride 8s linear infinite;
+    background: linear-gradient(
+      124deg,
+      #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3
+    );
+    background-size: 1800% 1800%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  @keyframes pride {
+    0% { background-position: 0% 0% }
+    100% { background-position: 100% 0% }
+  }
+</style>
 
 <script>
 const layers = [

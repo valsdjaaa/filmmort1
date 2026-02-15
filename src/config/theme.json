@@ -1,0 +1,8 @@
+{
+  "titleColor": "#ffffff",
+  "prideMode": false,
+  "customColors": [
+    { "part": "film", "color": "#ffffff" },
+    { "part": "mort", "color": "#ffffff" }
+  ]
+}

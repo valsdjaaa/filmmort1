@@ -12,6 +12,9 @@ const texts = defineCollection({
       tags: z.array(z.string()).default([]),
       date: z.coerce.date(),
 
+      // NOVO: pinned polje
+      pinned: z.boolean().optional().default(false),
+
       excerpt: z.string().optional(),
 
       director: z.string().optional(),
