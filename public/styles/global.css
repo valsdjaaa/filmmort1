@@ -538,12 +538,9 @@ main {
 	margin-bottom: 0;
   }
 
-.site-header-inner {
+  .site-header-inner {
   height: 80px;
-  align-items: flex-end;
-  padding-bottom: 6px;
 }
-
   .site-title {
     margin-left: 0.2rem;
   }
@@ -572,7 +569,7 @@ main {
   overflow-x: auto;
   white-space: nowrap;
   margin: 0;
-  padding: 6px 0;   /* kontrolisana visina */
+  padding: 0;           /* <-- NULA */
   background: #000;
 }
 
@@ -580,15 +577,13 @@ main {
   display: inline-flex;
   gap: 0.3rem;
   margin: 0;
-  padding: 0;       /* NEMA paddinga ovde */
+  padding: 0;           /* <-- NULA */
   align-items: center;
 }
 
 
-
 .mobile-filters .filter-pill {
-  padding: 0.12rem 0.4rem;
-  font-size: 0.55rem;
+  padding: 4px 8px;
   line-height: 1;
 }
   
