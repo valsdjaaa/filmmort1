@@ -705,26 +705,36 @@ main {
   }
   
   /* ===== ARHIVA GRID ===== */
-  .archive-grid {
-    grid-template-columns: repeat(2, 1fr);
-    margin-left: 0;
-    margin-right: 0;
-    width: 100%;
-  }
+.archive-grid {
+  grid-template-columns: repeat(3, 1fr);
+  margin-left: 0;
+  margin-right: 0;
+  width: 100%;
+  gap: 0; /* Osiguraj da nema razmaka između kvadrata */
+}
   
-  .archive-item {
-    padding: 0.6rem;
-  }
-  
-  .archive-meta {
-    font-size: 0.5rem;
-  }
-  
-  .archive-subtitle {
-    font-size: 0.7rem !important;
-    line-height: 1.2;
-    margin-top: 0.2rem;
-  }
+.archive-item {
+  padding: 0.5rem; /* Malo manji padding za 3 kolone */
+  aspect-ratio: 1 / 1; /* Zadrži kvadratni oblik */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.archive-meta {
+  font-size: 0.45rem; /* Još manji meta podaci za 3 kolone */
+  line-height: 1.2;
+}
+
+.archive-title {
+  font-size: 0.9rem; /* Smanji naslov da stane */
+  line-height: 1.2;
+  margin: 0.3rem 0;
+}
+
+.archive-subtitle {
+  font-size: 0.6rem !important;
+  line-height: 1.1;
+  m
   
   /* ===== DARK MODE IKONICA ===== */
   .dark-mode-toggle {
