@@ -583,9 +583,12 @@ main {
 
 
 .mobile-filters .filter-pill {
-  padding: 4px 8px;
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  padding: 2px 6px;
   line-height: 1;
 }
+
   
   /* SVE filter - bela boja */
 .mobile-filters .filter-pill:first-child {
