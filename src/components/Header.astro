@@ -18,12 +18,6 @@ const { page = "" } = Astro.props;
       </a>
     </div>
 
-{/* page === "archive" && (
-  <div class="header-filters">
-    <slot name="header-filters" />
-  </div>
-) */}
-
     <nav class="site-nav">
       <a href="/archive">Arhiva</a>
       <a href="/about">About</a>
@@ -32,6 +26,13 @@ const { page = "" } = Astro.props;
 
 </header>
 
+{page === "archive" && (
+  <div class="mobile-filters">
+    <div class="archive-filters">
+      <slot name="header-filters" />
+    </div>
+  </div>
+)}
 
 <script>
 const layers = [
