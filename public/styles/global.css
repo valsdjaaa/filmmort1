@@ -342,10 +342,26 @@ main {
 
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
-/* HOVER LAYER */
+/* ===== META GORE ===== */
+.archive-meta {
+  margin-bottom: 1rem;
+}
+
+/* ===== CONTENT BLOK ===== */
+.archive-title {
+  min-height: 2.4em;     /* prostor za 2 reda */
+  line-height: 1.2;
+  margin-bottom: 0.6rem;
+}
+
+.archive-subtitle {
+  min-height: 1.2em;     /* rezervisana 1 linija */
+  line-height: 1.2;
+}
+
+/* ===== HOVER LAYER ===== */
 .archive-item::before {
   content: "";
   position: absolute;
@@ -358,15 +374,9 @@ main {
   pointer-events: none;
 }
 
-
 .archive-item:hover::before {
   opacity: 0.18;
 }
-.archive-item {
-  position: relative;
-  /* overflow: hidden;  <-- OVO obriši */
-}
-
 
 
 /* TAG BOJE */
