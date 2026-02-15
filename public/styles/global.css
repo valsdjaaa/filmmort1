@@ -401,13 +401,35 @@ main {
 
 
 .about-grid {
+  position: relative;          /* dodaj */
   max-width: var(--max-width);
-  margin: 0 auto;
+  margin: -1px auto 0;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  border-top: 1px solid var(--line);
-  /* border-left: 1px solid var(--line);  <-- OBRIŠI */
+
+  border-top: none;            /* ukloni */
+  border-bottom: none;         /* ukloni */
 }
+.about-grid::before,
+.about-grid::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  height: 1px;
+  background: var(--line);
+}
+
+.about-grid::before {
+  top: 0;
+}
+
+.about-grid::after {
+  bottom: 0;
+}
+
+
 .about-tile:last-child {
   border-right: none;
 }
@@ -417,10 +439,8 @@ main {
 
 .about-tile {
   border-right: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
   padding: 2rem;
 }
-
 
 
 .logo {
