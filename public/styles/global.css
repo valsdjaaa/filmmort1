@@ -566,6 +566,32 @@ main {
   0% { background-position: 0% 0% }
   100% { background-position: 100% 0% }
 }
+.row.pinned {
+  background-color: var(--tag-color);
+  background-opacity: 0.05;
+}
+
+/* Alternativa sa rgba preko pseudo-elementa */
+.row.pinned::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: var(--tag-color);
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.cell.date {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.pin-icon {
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
 /* ================================================= */
 /* ===================== MOBILE ==================== */
 /* ================================================= */
