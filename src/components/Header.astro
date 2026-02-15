@@ -48,18 +48,21 @@ const getColor = (part) => {
 
 <style is:global>
   /* Pride mode animacija */
-  .site-header--film.pride-mode .logo .film,
-  .site-header--film.pride-mode .logo .mort {
-    animation: pride 8s linear infinite;
-    background: linear-gradient(
-      124deg,
-      #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3
-    );
-    background-size: 1800% 1800%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
+.site-header--film.pride-mode .logo .film,
+.site-header--film.pride-mode .logo .mort {
+  background: linear-gradient(180deg, 
+    #E50000 0%, #E50000 16.66%,
+    #FF8D00 16.66%, #FF8D00 33.32%,
+    #FFEE00 33.32%, #FFEE00 49.98%,
+    #028121 49.98%, #028121 66.64%,
+    #004CFF 66.64%, #004CFF 83.3%,
+    #770088 83.3%, #770088 100%
+  );
+  background-size: 100% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 
   @keyframes pride {
     0% { background-position: 0% 0% }

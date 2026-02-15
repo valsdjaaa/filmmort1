@@ -6,3 +6,9 @@
     { "part": "mort", "color": "#ffffff" }
   ]
 }
+{
+  "prideMode": true,
+  "prideColors": ["#E50000", "#FF8D00", "#FFEE00", "#028121", "#004CFF", "#770088"],
+  "titleColor": "#ffffff",
+  "customColors": []
+}

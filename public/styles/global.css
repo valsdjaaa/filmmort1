@@ -567,21 +567,24 @@ main {
   100% { background-position: 100% 0% }
 }
 .row.pinned {
-  box-shadow: inset 0 0 0 1px var(--tag-color) at 10% opacity;
   position: relative;
+  background-color: transparent;
 }
 
 .row.pinned::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(45deg, 
-    var(--tag-color) 0%, 
-    transparent 70%
-  );
-  opacity: 0.1;
+  background-color: var(--tag-color);
+  opacity: 0.08;  /* Fino prozirno */
   pointer-events: none;
   z-index: 0;
+}
+
+/* Osiguraj da sadržaj bude iznad pozadine */
+.row.pinned .row-inner {
+  position: relative;
+  z-index: 1;
 }
 
 .cell.date {
