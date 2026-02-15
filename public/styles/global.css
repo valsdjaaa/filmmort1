@@ -586,7 +586,7 @@ main {
   position: absolute;
   inset: 0;
   background-color: var(--tag-color);
-  opacity: 0.08;  /* Fino prozirno */
+  opacity: 0.16;  /* Fino prozirno */
   pointer-events: none;
   z-index: 0;
 }
