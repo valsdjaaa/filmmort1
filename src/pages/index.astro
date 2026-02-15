@@ -61,10 +61,9 @@ const posts = (await getCollection("texts"))
               {post.data.kicker && (
                 <div class="kicker">{post.data.kicker}</div>
               )}
-              <div class="title">{post.data.title}</div>
-              {post.data.subtitle && (
-                <div class="subtitle">{post.data.subtitle}</div>
-              )}
+				<div class="subtitle">
+				  {post.data.subtitle ?? ""}
+				</div>
             </div>
           </div>
         </a>

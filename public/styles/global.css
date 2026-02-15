@@ -233,6 +233,7 @@ body {
   margin-top: 0.5rem;
   font-size: 1.05rem;
   color: #444;
+  min-height: 2.8em;
 }
 
 /* LINK RESET */
