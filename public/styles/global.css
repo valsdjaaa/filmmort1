@@ -401,12 +401,18 @@ main {
 
 
 .about-grid {
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
+  max-width: var(--max-width);
+  margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   border-top: 1px solid var(--line);
-  border-left: 1px solid var(--line);
+  /* border-left: 1px solid var(--line);  <-- OBRIŠI */
+}
+.about-tile:last-child {
+  border-right: none;
+}
+.about-tile:first-child {
+  border-left: none;
 }
 
 .about-tile {
