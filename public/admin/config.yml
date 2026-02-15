@@ -3,9 +3,8 @@ backend:
   repo: valsdjaaa/filmmort1
   branch: main
   base_url: https://cybernetic-cms-auth.nebojsa-beat.workers.dev
-auth_endpoint: /auth  # ← SAMO OVO, ništa drugo
+  auth_endpoint: /auth
 
-# Ostatak tvog config fajla (media_folder, collections) ostaje POTPUNO ISTI
 media_folder: "public/images"
 public_folder: "/images"
 
@@ -19,6 +18,7 @@ collections:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Subtitle", name: "subtitle", widget: "string", required: false }
       - { label: "Kicker", name: "kicker", widget: "string", required: false }
+      - { label: "Pinned", name: "pinned", widget: "boolean", default: false, required: false }
       - { label: "Tags", name: "tags", widget: "list", default: ["film"] }
       - { label: "Date", name: "date", widget: "datetime" }
       - { label: "Body", name: "body", widget: "markdown" }
@@ -32,8 +32,8 @@ collections:
       - { label: "Ključ (npr. film)", name: "key", widget: "string" }
       - { label: "Naziv za prikaz", name: "label", widget: "string" }
       - { label: "Boja", name: "color", widget: "color" }
-      
-      - name: "theme"
+
+  - name: "theme"
     label: "Izgled sajta"
     files:
       - name: "theme"
